@@ -43,7 +43,7 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun Colors.getMainActivityTopBarViewTextColor(): Color {
+fun Colors.getMainViewTopBarViewTextColor(): Color {
     return if (isLight) {
         Color.Black
     } else {

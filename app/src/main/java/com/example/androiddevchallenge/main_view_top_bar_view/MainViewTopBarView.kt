@@ -33,16 +33,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.MutableLiveData
 import com.example.androiddevchallenge.graph.WeatherGraph
 import com.example.androiddevchallenge.theme.MainTheme
-import com.example.androiddevchallenge.theme.getMainActivityTopBarViewTextColor
+import com.example.androiddevchallenge.theme.getMainViewTopBarViewTextColor
 
 @Composable
-fun MainActivityTopBar(
-    modifier: Modifier = Modifier
+fun MainViewTopBar(
+    modifier: Modifier = Modifier,
+    preview: Boolean = false
 ) {
-    val textColor = MaterialTheme.colors.getMainActivityTopBarViewTextColor()
-    val userAction = Mvp().createUserAction()
+    val textColor = MaterialTheme.colors.getMainViewTopBarViewTextColor()
+    val userAction = Mvp(preview).createUserAction()
     val temperatureState by userAction.getTemperature().observeAsState()
     Row(
         modifier = modifier
@@ -83,30 +85,39 @@ fun MainActivityTopBar(
 
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
-fun MainActivityTopBarViewLightPreview() {
+fun MainViewTopBarViewLightPreview() {
     MainTheme {
         Surface(color = MaterialTheme.colors.background) {
-            MainActivityTopBar()
+            MainViewTopBar(preview = true)
         }
     }
 }
 
 @Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable
-fun MainActivityTopBarViewDarkPreview() {
+fun MainViewTopBarViewDarkPreview() {
     MainTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colors.background) {
-            MainActivityTopBar()
+            MainViewTopBar(preview = true)
         }
     }
 }
 
-private class Mvp {
+private class Mvp(
+    private val preview: Boolean
+) {
 
     private fun createScreen() = object : MainViewTopBarViewContract.Screen {
     }
 
     fun createUserAction(): MainViewTopBarViewContract.UserAction {
+        if (preview) {
+            return object : MainViewTopBarViewContract.UserAction {
+                private var temperature = MutableLiveData("28°C")
+                override fun getTemperature(): MutableLiveData<String> = temperature
+                override fun onTemperatureClick() {}
+            }
+        }
         return MainViewTopBarViewPresenter(
             createScreen(),
             WeatherGraph.getWeatherManager()

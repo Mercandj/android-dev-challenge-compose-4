@@ -24,17 +24,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.androiddevchallenge.main_view_top_bar_view.MainActivityTopBar
+import com.example.androiddevchallenge.main_view_top_bar_view.MainViewTopBar
 import com.example.androiddevchallenge.theme.MainTheme
 
 @Composable
-fun MainView() {
+fun MainView(
+    preview: Boolean = false
+) {
     Surface(color = MaterialTheme.colors.background) {
         Column {
             Spacer(modifier = Modifier.height(24.dp))
-            MainActivityTopBar(
+            MainViewTopBar(
                 modifier = Modifier
-                    .height(50.dp)
+                    .height(50.dp),
+                preview = preview
             )
         }
     }
@@ -42,16 +45,16 @@ fun MainView() {
 
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
-fun LightPreview() {
+fun MainViewLightPreview() {
     MainTheme {
-        MainView()
+        MainView(preview = true)
     }
 }
 
 @Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable
-fun DarkPreview() {
+fun MainViewDarkPreview() {
     MainTheme(darkTheme = true) {
-        MainView()
+        MainView(preview = true)
     }
 }
