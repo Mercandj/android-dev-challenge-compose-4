@@ -2,6 +2,26 @@
 
 Template repository for the Jetpack Compose [#AndroidDevChallenge](https://developer.android.com/dev-challenge).
 
+## Mercandj's notes
+
+This is the first time I'm trying Jetpack Compose.
+Even if the spirit seems to be reactive paradigm, I will try to use it on a more "classic" way.
+
+**Why?**
+- Because, if one day I'm using this techno in production, I will need this "transition" to not move all my code to "react"
+- Because stay "non reactive" is easier for the reactive-beginner that I am
+- Because stay "non reactive" allow you to produce almost the same code on any platform easily (Unity, iOS, server...)
+
+**My goals will be:**
+- Discover Jetpack Compose
+- Split as much as possible logic from the UI with the good old "MVP"
+- Great UI / Great app quality (app we can publish on Google Play)
+
+**Requirement if you a coming from "stable Android Studio" on MacOs**
+- Download Java 11 here https://jdk.java.net/archive/
+- Add it like that: `/Users/jonathan/Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk`
+- If cannot open the jdk: https://superuser.com/a/1537706
+
 ## Getting started
 Copy this repository by pressing the "Use this template" button in Github.
 Clone your repository and open it in the latest [Android Studio (Canary build)](https://developer.android.com/studio/preview).

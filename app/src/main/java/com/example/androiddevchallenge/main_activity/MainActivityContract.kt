@@ -13,20 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.main_view_top_bar_view
+package com.example.androiddevchallenge.main_activity
 
-import androidx.lifecycle.MutableLiveData
+import androidx.annotation.ColorRes
 
-interface MainViewTopBarViewContract {
+interface MainActivityContract {
 
     interface UserAction {
 
-        fun getTemperature(): MutableLiveData<String>
-
-        fun onTemperatureClick()
-
-        fun onCityClicked()
+        fun onCreate()
     }
 
-    interface Screen
+    interface Screen {
+
+        fun setStatusBarTheme(@ColorRes colorRes: Int, themeDark: Boolean)
+
+        fun setNavigationBarTheme(@ColorRes colorRes: Int, themeDark: Boolean)
+    }
 }

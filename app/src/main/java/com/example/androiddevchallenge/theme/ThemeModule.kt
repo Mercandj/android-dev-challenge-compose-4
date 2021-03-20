@@ -13,20 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.main_view_top_bar_view
+package com.example.androiddevchallenge.theme
 
-import androidx.lifecycle.MutableLiveData
+import com.example.androiddevchallenge.graph.WeatherGraph
 
-interface MainViewTopBarViewContract {
+class ThemeModule {
 
-    interface UserAction {
-
-        fun getTemperature(): MutableLiveData<String>
-
-        fun onTemperatureClick()
-
-        fun onCityClicked()
+    fun createThemeManager(): ThemeManager {
+        return ThemeManagerImpl(WeatherGraph.getContext())
     }
-
-    interface Screen
 }

@@ -13,20 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.main_view_top_bar_view
+package com.example.androiddevchallenge.theme
 
-import androidx.lifecycle.MutableLiveData
+interface ThemeManager {
 
-interface MainViewTopBarViewContract {
-
-    interface UserAction {
-
-        fun getTemperature(): MutableLiveData<String>
-
-        fun onTemperatureClick()
-
-        fun onCityClicked()
-    }
-
-    interface Screen
+    fun isLight(): Boolean
 }

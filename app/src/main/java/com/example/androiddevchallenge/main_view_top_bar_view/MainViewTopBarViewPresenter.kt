@@ -42,7 +42,10 @@ class MainViewTopBarViewPresenter(
         weatherManager.increase()
     }
 
+    override fun onCityClicked() {
+    }
+
     private fun createTemperature(): String {
-        return "${weatherManager.getTemperature()}°C"
+        return "${weatherManager.getTemperature()}°"
     }
 }

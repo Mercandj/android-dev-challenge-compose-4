@@ -34,7 +34,7 @@ private val LightColorPalette = lightColors(
     primary = purple500,
     primaryVariant = purple700,
     secondary = teal200,
-    background = Color.White,
+    background = Color(0xFFEEF0F5),
     surface = Color.White,
     onPrimary = Color.White,
     onSecondary = Color.Black,
@@ -48,6 +48,24 @@ fun Colors.getMainViewTopBarViewTextColor(): Color {
         Color.Black
     } else {
         Color.White
+    }
+}
+
+@Composable
+fun Colors.getMainViewTopBackgroundColor(): Color {
+    return if (isLight) {
+        Color(0XFFEEF0F5)
+    } else {
+        Color(0XFF394253)
+    }
+}
+
+@Composable
+fun Colors.getMainViewBottomBackgroundColor(): Color {
+    return if (isLight) {
+        Color(0XFFEEF0F5)
+    } else {
+        Color(0XFF181C27)
     }
 }
 

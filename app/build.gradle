@@ -61,6 +61,23 @@ android {
         excludes += "/META-INF/AL2.0"
         excludes += "/META-INF/LGPL2.1"
     }
+
+
+
+    sourceSets {
+        main {
+            // Split resources.
+            // https://medium.com/google-developer-experts/android-project-structure-alternative-way-29ce766682f0#.sjnhetuhb
+            res.srcDirs = [
+                    'src/main/res/icon',
+                    'src/main/res/main',
+                    'src/main/res/main_weather_animated_view',
+                    'src/main/res/main_weather_animated_view_figure',
+                    'src/main/res/neumorphism_card_square_view',
+                    'src/main/res/theme'
+            ]
+        }
+    }
 }
 
 dependencies {
@@ -76,6 +93,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0'
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+
+    implementation "androidx.compose.animation:animation:$compose_version"
 
     testImplementation 'junit:junit:4.13.2'
 

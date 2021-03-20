@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="theme_bool_light_mode">true</bool>
+</resources>

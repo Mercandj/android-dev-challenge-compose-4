@@ -17,28 +17,47 @@ package com.example.androiddevchallenge.main_view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.androiddevchallenge.main_view_top_bar_view.MainViewTopBar
+import com.example.androiddevchallenge.main_view_top_bar_view.MainViewTopBarView
+import com.example.androiddevchallenge.main_weather_animated_view.MainWeatherAnimatedView
 import com.example.androiddevchallenge.theme.MainTheme
 
 @Composable
 fun MainView(
     preview: Boolean = false
 ) {
-    Surface(color = MaterialTheme.colors.background) {
-        Column {
-            Spacer(modifier = Modifier.height(24.dp))
-            MainViewTopBar(
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+    ) {
+        MainViewBackgroundView {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Spacer(modifier = Modifier.height(6.dp))
+                MainViewTopBarView(
+                    preview = preview
+                )
+            }
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .height(50.dp),
-                preview = preview
-            )
+                    .align(Alignment.Center)
+            ) {
+                Spacer(modifier = Modifier.height(80.dp))
+                MainWeatherAnimatedView(
+                    preview = preview
+                )
+            }
         }
     }
 }

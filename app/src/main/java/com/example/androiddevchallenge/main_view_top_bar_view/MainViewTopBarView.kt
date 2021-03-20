@@ -15,12 +15,16 @@
  */
 package com.example.androiddevchallenge.main_view_top_bar_view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -30,16 +34,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.lifecycle.MutableLiveData
 import com.example.androiddevchallenge.graph.WeatherGraph
+import com.example.androiddevchallenge.neumorphism_card_square_view.NeumorphismCardSquareView
 import com.example.androiddevchallenge.theme.MainTheme
+import com.example.androiddevchallenge.theme.getMainViewBottomBackgroundColor
+import com.example.androiddevchallenge.theme.getMainViewTopBackgroundColor
 import com.example.androiddevchallenge.theme.getMainViewTopBarViewTextColor
 
 @Composable
-fun MainViewTopBar(
+fun MainViewTopBarView(
     modifier: Modifier = Modifier,
     preview: Boolean = false
 ) {
@@ -48,38 +59,65 @@ fun MainViewTopBar(
     val temperatureState by userAction.getTemperature().observeAsState()
     Row(
         modifier = modifier
-            .height(100.dp)
-            .fillMaxWidth()
-            .padding(start = 24.dp, end = 24.dp),
+            .wrapContentHeight()
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(
             modifier = Modifier
                 .weight(1f)
+                .padding(start = 24.dp, end = 24.dp)
+                .clickable { userAction.onCityClicked() }
         ) {
             Text(
                 text = "Paris, France",
-                fontSize = 20.sp,
+                fontSize = 22.sp,
                 color = textColor,
+                fontWeight = FontWeight(900),
                 modifier = Modifier
-                    .height(25.dp)
+                    .wrapContentHeight()
             )
             Text(
                 text = "Electric",
-                fontSize = 20.sp,
-                color = textColor,
+                fontSize = 22.sp,
+                color = Color(0xFFFDE807),
+                fontWeight = FontWeight(900),
                 modifier = Modifier
-                    .height(25.dp)
+                    .wrapContentHeight()
             )
         }
-        Text(
+        NeumorphismCardSquareView(
             modifier = Modifier
-                .wrapContentWidth()
-                .clickable { userAction.onTemperatureClick() },
-            text = temperatureState!!,
-            fontSize = 42.sp,
-            color = textColor,
-        )
+                .height(160.dp)
+                .width(160.dp)
+                .padding(start = 24.dp, end = 24.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .zIndex(2f)
+                    .height(90.dp)
+                    .width(90.dp)
+                    .clickable(
+                        onClick = {
+                            userAction.onTemperatureClick()
+                        }
+                    )
+            ) {
+
+                Text(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .zIndex(2f)
+                        .wrapContentWidth()
+                        .wrapContentHeight(),
+                    text = temperatureState!!,
+                    fontSize = 40.sp,
+                    fontWeight = FontWeight(900),
+                    color = textColor
+                )
+            }
+        }
     }
 }
 
@@ -87,8 +125,19 @@ fun MainViewTopBar(
 @Composable
 fun MainViewTopBarViewLightPreview() {
     MainTheme {
-        Surface(color = MaterialTheme.colors.background) {
-            MainViewTopBar(preview = true)
+        Surface {
+            Box(
+                modifier = Modifier.background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            MaterialTheme.colors.getMainViewTopBackgroundColor(),
+                            MaterialTheme.colors.getMainViewBottomBackgroundColor()
+                        )
+                    )
+                )
+            ) {
+                MainViewTopBarView(preview = true)
+            }
         }
     }
 }
@@ -97,8 +146,19 @@ fun MainViewTopBarViewLightPreview() {
 @Composable
 fun MainViewTopBarViewDarkPreview() {
     MainTheme(darkTheme = true) {
-        Surface(color = MaterialTheme.colors.background) {
-            MainViewTopBar(preview = true)
+        Surface {
+            Box(
+                modifier = Modifier.background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            MaterialTheme.colors.getMainViewTopBackgroundColor(),
+                            MaterialTheme.colors.getMainViewBottomBackgroundColor()
+                        )
+                    )
+                )
+            ) {
+                MainViewTopBarView(preview = true)
+            }
         }
     }
 }
@@ -113,9 +173,10 @@ private class Mvp(
     fun createUserAction(): MainViewTopBarViewContract.UserAction {
         if (preview) {
             return object : MainViewTopBarViewContract.UserAction {
-                private var temperature = MutableLiveData("28°C")
+                private var temperature = MutableLiveData("28°")
                 override fun getTemperature(): MutableLiveData<String> = temperature
                 override fun onTemperatureClick() {}
+                override fun onCityClicked() {}
             }
         }
         return MainViewTopBarViewPresenter(
