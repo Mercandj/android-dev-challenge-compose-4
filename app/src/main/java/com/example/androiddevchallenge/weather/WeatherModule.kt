@@ -15,9 +15,25 @@
  */
 package com.example.androiddevchallenge.weather
 
+import com.example.androiddevchallenge.graph.WeatherGraph
+import com.example.androiddevchallenge.weather_api.WeatherApiModule
+
 class WeatherModule {
 
     fun createWeatherManager(): WeatherManager {
-        return WeatherManagerImpl()
+        return WeatherManagerImpl(
+            WeatherApiModule().createWeatherApiManager(),
+            WeatherGraph.getWeatherCurrentCityManager(),
+            WeatherGraph.getWeatherRepository(),
+            createWeatherManagerImplAddOn()
+        )
+    }
+
+    private fun createWeatherManagerImplAddOn() = object : WeatherManagerImpl.AddOn {
+        override fun postWorkerThread(runnable: Runnable) {
+        }
+
+        override fun postMainThread(runnable: Runnable) {
+        }
     }
 }

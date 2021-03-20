@@ -15,30 +15,24 @@
  */
 package com.example.androiddevchallenge.weather
 
-class WeatherManagerImpl : WeatherManager {
+import com.example.androiddevchallenge.weather_api.WeatherApiManager
+import com.example.androiddevchallenge.weather_current_city.WeatherCurrentCityManager
+import com.example.androiddevchallenge.weather_repository.WeatherRepository
 
-    private val listeners = ArrayList<WeatherManager.Listener>()
-    private var temperature = 28
+class WeatherManagerImpl(
+    private val weatherApiManager: WeatherApiManager,
+    private val weatherCurrentCityManager: WeatherCurrentCityManager,
+    private val weatherRepository: WeatherRepository,
+    private val addOn: AddOn
+) : WeatherManager {
 
-    override fun increase() {
-        temperature++
-        for (listener in listeners) {
-            listener.onChanged()
-        }
+    override fun load() {
     }
 
-    override fun getTemperature(): Int {
-        return temperature
-    }
+    interface AddOn {
 
-    override fun addListener(listener: WeatherManager.Listener) {
-        if (listeners.contains(listener)) {
-            return
-        }
-        listeners.add(listener)
-    }
+        fun postWorkerThread(runnable: Runnable)
 
-    override fun removeListener(listener: WeatherManager.Listener) {
-        listeners.remove(listener)
+        fun postMainThread(runnable: Runnable)
     }
 }

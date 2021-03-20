@@ -21,7 +21,7 @@ interface MainActivityContract {
 
     interface UserAction {
 
-        fun onCreate()
+        fun onCreate(savedInstanceStateNull: Boolean)
     }
 
     interface Screen {

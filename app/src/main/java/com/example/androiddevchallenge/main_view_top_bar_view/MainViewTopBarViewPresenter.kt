@@ -16,22 +16,29 @@
 package com.example.androiddevchallenge.main_view_top_bar_view
 
 import androidx.lifecycle.MutableLiveData
-import com.example.androiddevchallenge.weather.WeatherManager
+import com.example.androiddevchallenge.weather_current_city.WeatherCurrentCityManager
+import com.example.androiddevchallenge.weather_repository.WeatherRepository
 
 class MainViewTopBarViewPresenter(
     private val screen: MainViewTopBarViewContract.Screen,
-    private val weatherManager: WeatherManager
+    private val weatherCurrentCityManager: WeatherCurrentCityManager,
+    private val weatherRepository: WeatherRepository
 ) : MainViewTopBarViewContract.UserAction {
 
+    private var city = MutableLiveData(createCity())
     private var temperature = MutableLiveData(createTemperature())
 
     init {
         // Require remove call?
-        weatherManager.addListener(object : WeatherManager.Listener {
+        weatherCurrentCityManager.addListener(object : WeatherCurrentCityManager.Listener {
             override fun onChanged() {
-                temperature.value = createTemperature()
+                city.value = createCity()
             }
         })
+    }
+
+    override fun getCity(): MutableLiveData<String> {
+        return city
     }
 
     override fun getTemperature(): MutableLiveData<String> {
@@ -39,13 +46,18 @@ class MainViewTopBarViewPresenter(
     }
 
     override fun onTemperatureClick() {
-        weatherManager.increase()
     }
 
     override fun onCityClicked() {
     }
 
+    private fun createCity(): String {
+        return weatherCurrentCityManager.getCity()
+    }
+
     private fun createTemperature(): String {
-        return "${weatherManager.getTemperature()}°"
+        val weather = weatherRepository.getWeather() ?: return "28°"
+        val temperature = weather.temperature.toInt()
+        return "$temperature°"
     }
 }

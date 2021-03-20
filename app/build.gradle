@@ -63,7 +63,6 @@ android {
     }
 
 
-
     sourceSets {
         main {
             // Split resources.
@@ -74,7 +73,8 @@ android {
                     'src/main/res/main_weather_animated_view',
                     'src/main/res/main_weather_animated_view_figure',
                     'src/main/res/neumorphism_card_square_view',
-                    'src/main/res/theme'
+                    'src/main/res/theme',
+                    'src/main/res/weather_icon_view'
             ]
         }
     }
@@ -89,12 +89,15 @@ dependencies {
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation "androidx.annotation:annotation:1.1.0"
 
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0'
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
 
     implementation "androidx.compose.animation:animation:$compose_version"
+
+    implementation("com.squareup.okhttp3:okhttp:3.12.13")
 
     testImplementation 'junit:junit:4.13.2'
 

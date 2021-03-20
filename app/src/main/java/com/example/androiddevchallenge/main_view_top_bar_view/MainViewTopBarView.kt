@@ -56,6 +56,7 @@ fun MainViewTopBarView(
 ) {
     val textColor = MaterialTheme.colors.getMainViewTopBarViewTextColor()
     val userAction = Mvp(preview).createUserAction()
+    val cityState by userAction.getCity().observeAsState()
     val temperatureState by userAction.getTemperature().observeAsState()
     Row(
         modifier = modifier
@@ -70,7 +71,7 @@ fun MainViewTopBarView(
                 .clickable { userAction.onCityClicked() }
         ) {
             Text(
-                text = "Paris, France",
+                text = cityState!!,
                 fontSize = 22.sp,
                 color = textColor,
                 fontWeight = FontWeight(900),
@@ -173,7 +174,9 @@ private class Mvp(
     fun createUserAction(): MainViewTopBarViewContract.UserAction {
         if (preview) {
             return object : MainViewTopBarViewContract.UserAction {
+                private var city = MutableLiveData("Paris, France")
                 private var temperature = MutableLiveData("28°")
+                override fun getCity(): MutableLiveData<String> = city
                 override fun getTemperature(): MutableLiveData<String> = temperature
                 override fun onTemperatureClick() {}
                 override fun onCityClicked() {}
@@ -181,7 +184,8 @@ private class Mvp(
         }
         return MainViewTopBarViewPresenter(
             createScreen(),
-            WeatherGraph.getWeatherManager()
+            WeatherGraph.getWeatherCurrentCityManager(),
+            WeatherGraph.getWeatherRepository()
         )
     }
 }

@@ -23,7 +23,7 @@ class MainActivityPresenter(
     private val themeManager: ThemeManager
 ) : MainActivityContract.UserAction {
 
-    override fun onCreate() {
+    override fun onCreate(savedInstanceStateNull: Boolean) {
         updateScreen()
     }
 

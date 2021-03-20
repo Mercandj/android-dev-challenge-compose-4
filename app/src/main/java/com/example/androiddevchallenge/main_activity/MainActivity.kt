@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                 MainView()
             }
         }
-        userAction.onCreate()
+        userAction.onCreate(savedInstanceState == null)
     }
 
     private fun createScreen() = object : MainActivityContract.Screen {

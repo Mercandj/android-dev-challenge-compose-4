@@ -21,6 +21,8 @@ interface MainViewTopBarViewContract {
 
     interface UserAction {
 
+        fun getCity(): MutableLiveData<String>
+
         fun getTemperature(): MutableLiveData<String>
 
         fun onTemperatureClick()

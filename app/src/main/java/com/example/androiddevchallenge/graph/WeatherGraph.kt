@@ -17,15 +17,21 @@ package com.example.androiddevchallenge.graph
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.example.androiddevchallenge.network.NetworkModule
 import com.example.androiddevchallenge.theme.ThemeModule
 import com.example.androiddevchallenge.weather.WeatherModule
+import com.example.androiddevchallenge.weather_current_city.WeatherCurrentCityModule
+import com.example.androiddevchallenge.weather_repository.WeatherRepositoryModule
 
 class WeatherGraph private constructor(
     private val context: Context
 ) {
 
+    private val networkManager by lazy { NetworkModule().createNetworkManager() }
     private val themeManager by lazy { ThemeModule().createThemeManager() }
+    private val weatherCurrentCityManager by lazy { WeatherCurrentCityModule().createWeatherCurrentCityManager() }
     private val weatherManager by lazy { WeatherModule().createWeatherManager() }
+    private val weatherRepository by lazy { WeatherRepositoryModule().createWeatherRepository() }
 
     companion object {
 
@@ -40,7 +46,10 @@ class WeatherGraph private constructor(
         }
 
         fun getContext() = graph!!.context
+        fun getNetworkManager() = graph!!.networkManager
         fun getThemeManager() = graph!!.themeManager
+        fun getWeatherCurrentCityManager() = graph!!.weatherCurrentCityManager
         fun getWeatherManager() = graph!!.weatherManager
+        fun getWeatherRepository() = graph!!.weatherRepository
     }
 }

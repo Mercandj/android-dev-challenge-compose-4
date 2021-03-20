@@ -17,16 +17,5 @@ package com.example.androiddevchallenge.weather
 
 interface WeatherManager {
 
-    fun increase()
-
-    fun getTemperature(): Int
-
-    fun addListener(listener: Listener)
-
-    fun removeListener(listener: Listener)
-
-    interface Listener {
-
-        fun onChanged()
-    }
+    fun load()
 }

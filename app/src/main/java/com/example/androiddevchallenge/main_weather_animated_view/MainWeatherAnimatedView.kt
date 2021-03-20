@@ -25,13 +25,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -44,6 +44,8 @@ import androidx.compose.ui.zIndex
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.main_view.MainViewBackgroundView
 import com.example.androiddevchallenge.theme.MainTheme
+import com.example.androiddevchallenge.weather.Weather
+import com.example.androiddevchallenge.weather_icon_view.WeatherIconView
 
 @Composable
 fun MainWeatherAnimatedView(
@@ -52,9 +54,19 @@ fun MainWeatherAnimatedView(
 ) {
     Box(
         modifier = modifier
-            .width(230.dp)
-            .height(230.dp)
+            .width(280.dp)
+            .height(280.dp)
     ) {
+
+        // https://medium.com/nerd-for-tech/jetpack-compose-pulsating-effect-4b9f2928d31a
+        val circleScale by rememberInfiniteTransition().animateFloat(
+            initialValue = 2.3f,
+            targetValue = 2.4f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(1000),
+                repeatMode = RepeatMode.Reverse
+            )
+        )
         Image(
             painter = painterResource(R.drawable.main_weather_animated_view_circle_with_shadow),
             contentDescription = "Weather",
@@ -63,7 +75,7 @@ fun MainWeatherAnimatedView(
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .zIndex(0f)
-                .scale(2.8f)
+                .scale(circleScale)
                 .padding(
                     start = 0.dp,
                     top = 0.dp,
@@ -72,21 +84,31 @@ fun MainWeatherAnimatedView(
                 )
                 .align(Alignment.Center)
         )
+        // https://medium.com/nerd-for-tech/jetpack-compose-pulsating-effect-4b9f2928d31a
+        val circleGradientScale by rememberInfiniteTransition().animateFloat(
+            initialValue = 0.8f,
+            targetValue = 0.85f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(1000),
+                repeatMode = RepeatMode.Reverse
+            )
+        )
         Image(
             painter = painterResource(R.drawable.main_weather_animated_view_circle_gradient_yellow),
             contentDescription = "Weather",
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
+                .scale(circleGradientScale)
                 .zIndex(1f)
                 .align(Alignment.Center)
         )
         // https://medium.com/nerd-for-tech/jetpack-compose-pulsating-effect-4b9f2928d31a
         val figureScale by rememberInfiniteTransition().animateFloat(
-            initialValue = 1.44f,
-            targetValue = 1.56f,
+            initialValue = 1.0f,
+            targetValue = 1.12f,
             animationSpec = infiniteRepeatable(
-                animation = tween(1200),
+                animation = tween(1000),
                 repeatMode = RepeatMode.Reverse
             )
         )
@@ -100,6 +122,26 @@ fun MainWeatherAnimatedView(
                 .zIndex(2f)
                 .align(Alignment.Center)
         )
+        Box(
+            modifier = Modifier.zIndex(3f)
+                .align(Alignment.TopStart)
+                .offset(x = (-50).dp, y = (-50).dp)
+        ) {
+            WeatherIconView(
+                modifier = Modifier.width(180.dp).height(180.dp),
+                Weather.Type.RAIN
+            )
+        }
+        Box(
+            modifier = Modifier.zIndex(3f)
+                .align(Alignment.BottomEnd)
+                .offset(x = 50.dp, y = 50.dp)
+        ) {
+            WeatherIconView(
+                modifier = Modifier.width(180.dp).height(180.dp),
+                Weather.Type.SNOW
+            )
+        }
     }
 }
 
