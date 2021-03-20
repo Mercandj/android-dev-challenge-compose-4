@@ -13,11 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.ui.theme
+package com.example.androiddevchallenge.graph
 
-import androidx.compose.ui.graphics.Color
+import android.annotation.SuppressLint
+import android.content.Context
 
-val purple200 = Color(0xFFBB86FC)
-val purple500 = Color(0xFF6200EE)
-val purple700 = Color(0xFF3700B3)
-val teal200 = Color(0xFF03DAC5)
+class WeatherGraph private constructor(
+    private val context: Context
+) {
+
+    companion object {
+
+        @SuppressLint("StaticFieldLeak")
+        private var graph: WeatherGraph? = null
+
+        fun initialize(context: Context) {
+            if (graph != null) {
+                return
+            }
+            graph = WeatherGraph(context.applicationContext)
+        }
+
+        fun getContext() = graph!!.context
+    }
+}
