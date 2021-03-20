@@ -13,22 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.main_activity
+package com.example.androiddevchallenge.main_view_top_bar_view
 
-import android.os.Bundle
-import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
-import com.example.androiddevchallenge.main_view.MainView
-import com.example.androiddevchallenge.theme.MainTheme
+import androidx.lifecycle.MutableLiveData
 
-class MainActivity : AppCompatActivity() {
+interface MainViewTopBarViewContract {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            MainTheme {
-                MainView()
-            }
-        }
+    interface UserAction {
+
+        fun getTemperature(): MutableLiveData<String>
+
+        fun onTemperatureClick()
     }
+
+    interface Screen
 }

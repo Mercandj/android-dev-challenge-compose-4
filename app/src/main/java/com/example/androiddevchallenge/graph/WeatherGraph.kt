@@ -17,10 +17,13 @@ package com.example.androiddevchallenge.graph
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.example.androiddevchallenge.weather.WeatherModule
 
 class WeatherGraph private constructor(
     private val context: Context
 ) {
+
+    private val weatherManager by lazy { WeatherModule().createWeatherManager() }
 
     companion object {
 
@@ -35,5 +38,6 @@ class WeatherGraph private constructor(
         }
 
         fun getContext() = graph!!.context
+        fun getWeatherManager() = graph!!.weatherManager
     }
 }

@@ -13,11 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.main_activity_top_bar
+package com.example.androiddevchallenge.weather
 
-interface MainActivityTopBarContract {
+interface WeatherManager {
 
-    interface UserAction
+    fun increase()
 
-    interface Screen
+    fun getTemperature(): Int
+
+    fun addListener(listener: Listener)
+
+    fun removeListener(listener: Listener)
+
+    interface Listener {
+
+        fun onChanged()
+    }
 }

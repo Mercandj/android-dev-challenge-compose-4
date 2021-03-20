@@ -52,7 +52,7 @@ fun Colors.getMainActivityTopBarViewTextColor(): Color {
 }
 
 @Composable
-fun MyTheme(
+fun MainTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit
 ) {

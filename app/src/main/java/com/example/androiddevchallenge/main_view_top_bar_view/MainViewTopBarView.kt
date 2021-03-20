@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.main_activity_top_bar
+package com.example.androiddevchallenge.main_view_top_bar_view
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,12 +26,15 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.androiddevchallenge.theme.MyTheme
+import com.example.androiddevchallenge.graph.WeatherGraph
+import com.example.androiddevchallenge.theme.MainTheme
 import com.example.androiddevchallenge.theme.getMainActivityTopBarViewTextColor
 
 @Composable
@@ -38,16 +42,17 @@ fun MainActivityTopBar(
     modifier: Modifier = Modifier
 ) {
     val textColor = MaterialTheme.colors.getMainActivityTopBarViewTextColor()
+    val userAction = Mvp().createUserAction()
+    val temperatureState by userAction.getTemperature().observeAsState()
     Row(
         modifier = modifier
-            .height(50.dp)
+            .height(100.dp)
             .fillMaxWidth()
-            .padding(24.dp),
+            .padding(start = 24.dp, end = 24.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(
             modifier = Modifier
-                .height(50.dp)
                 .weight(1f)
         ) {
             Text(
@@ -67,10 +72,11 @@ fun MainActivityTopBar(
         }
         Text(
             modifier = Modifier
-                .wrapContentWidth(),
-            text = "28°",
+                .wrapContentWidth()
+                .clickable { userAction.onTemperatureClick() },
+            text = temperatureState!!,
             fontSize = 42.sp,
-            color = textColor
+            color = textColor,
         )
     }
 }
@@ -78,7 +84,7 @@ fun MainActivityTopBar(
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun MainActivityTopBarViewLightPreview() {
-    MyTheme {
+    MainTheme {
         Surface(color = MaterialTheme.colors.background) {
             MainActivityTopBar()
         }
@@ -88,9 +94,22 @@ fun MainActivityTopBarViewLightPreview() {
 @Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun MainActivityTopBarViewDarkPreview() {
-    MyTheme(darkTheme = true) {
+    MainTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colors.background) {
             MainActivityTopBar()
         }
+    }
+}
+
+private class Mvp {
+
+    private fun createScreen() = object : MainViewTopBarViewContract.Screen {
+    }
+
+    fun createUserAction(): MainViewTopBarViewContract.UserAction {
+        return MainViewTopBarViewPresenter(
+            createScreen(),
+            WeatherGraph.getWeatherManager()
+        )
     }
 }
