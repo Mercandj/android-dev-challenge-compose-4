@@ -13,20 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.weather_current_city
+package com.example.androiddevchallenge.city
 
-interface WeatherCurrentCityManager {
+import android.content.Context
+import android.content.SharedPreferences
+import com.example.androiddevchallenge.graph.WeatherGraph
 
-    fun getCity(): String
+class CityModule {
 
-    fun setCity(city: String)
+    fun createCityManager(): CityManager {
+        return CityManagerImpl(
+            createSharedPreferences()
+        )
+    }
 
-    fun addListener(listener: Listener)
-
-    fun removeListener(listener: Listener)
-
-    interface Listener {
-
-        fun onChanged()
+    private fun createSharedPreferences(): SharedPreferences {
+        val context = WeatherGraph.getContext()
+        return context.getSharedPreferences(
+            CityManagerImpl.PREFERENCE_NAME,
+            Context.MODE_PRIVATE
+        )
     }
 }

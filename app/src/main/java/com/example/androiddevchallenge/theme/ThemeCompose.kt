@@ -70,6 +70,42 @@ fun Colors.getMainViewBottomBackgroundColor(): Color {
 }
 
 @Composable
+fun Colors.getTextPrimaryColor(): Color {
+    return if (isLight) {
+        Color(0XFF000000)
+    } else {
+        Color(0XFFFFFFFF)
+    }
+}
+
+@Composable
+fun Colors.getTextSecondaryColor(): Color {
+    return if (isLight) {
+        Color(0XFF404040)
+    } else {
+        Color(0XFFC0C0C0)
+    }
+}
+
+@Composable
+fun Colors.getTextThirdColor(): Color {
+    return if (isLight) {
+        Color(0XFF808080)
+    } else {
+        Color(0XFFA0A0A0)
+    }
+}
+
+@Composable
+fun Colors.getTextHintColor(): Color {
+    return if (isLight) {
+        Color(0XFFB0B0B0)
+    } else {
+        Color(0XFF909090)
+    }
+}
+
+@Composable
 fun MainTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit

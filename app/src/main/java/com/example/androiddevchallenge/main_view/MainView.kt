@@ -16,19 +16,25 @@
 package com.example.androiddevchallenge.main_view
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
+import com.example.androiddevchallenge.city_edit_view.CityEditView
+import com.example.androiddevchallenge.forecast_cell_view.ForecastCellView
 import com.example.androiddevchallenge.main_view_top_bar_view.MainViewTopBarView
 import com.example.androiddevchallenge.main_weather_animated_view.MainWeatherAnimatedView
 import com.example.androiddevchallenge.theme.MainTheme
+import com.example.androiddevchallenge.weather.Weather
 
 @Composable
 fun MainView(
@@ -41,9 +47,16 @@ fun MainView(
     ) {
         MainViewBackgroundView {
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .zIndex(2f)
             ) {
                 Spacer(modifier = Modifier.height(6.dp))
+                CityEditView(
+                    preview = preview,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(0.dp))
                 MainViewTopBarView(
                     preview = preview
                 )
@@ -52,11 +65,39 @@ fun MainView(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .align(Alignment.Center)
+                    .zIndex(1f)
             ) {
-                Spacer(modifier = Modifier.height(80.dp))
+                Spacer(modifier = Modifier.height(30.dp))
                 MainWeatherAnimatedView(
                     preview = preview
                 )
+            }
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .padding(start = 6.dp, end = 6.dp)
+                    .align(Alignment.BottomCenter)
+                    .zIndex(4f)
+            ) {
+                val weathers = Weather.fakeWeathers
+                Row {
+                    ForecastCellView(
+                        weathers[0],
+                        Modifier.weight(1f)
+                    )
+                    ForecastCellView(
+                        weathers[1],
+                        Modifier.weight(1f)
+                    )
+                    ForecastCellView(
+                        weathers[2],
+                        Modifier.weight(1f)
+                    )
+                    ForecastCellView(
+                        weathers[3],
+                        Modifier.weight(1f)
+                    )
+                }
             }
         }
     }

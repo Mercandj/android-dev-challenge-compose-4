@@ -31,11 +31,31 @@ fun WeatherIconView(
 ) {
     Image(
         painter = painterResource(weatherType.toDrawableRes()),
-        contentDescription = "Weather",
+        contentDescription = weatherType.toImageContentDescription(),
         modifier = modifier
             .fillMaxWidth()
             .fillMaxHeight()
     )
+}
+
+private fun Weather.Type.toImageContentDescription(): String {
+    return "Weather is: " + when (this) {
+        Weather.Type.CLEAR -> "clear"
+        Weather.Type.THUNDERSTORM -> "thunderstorm"
+        Weather.Type.DRIZZLE -> "drizzle"
+        Weather.Type.CLOUDS -> "clouds"
+        Weather.Type.CLOUDS_SCATTERED_CLOUDS -> "scattered clouds"
+        Weather.Type.CLOUDS_BROKEN_CLOUDS -> "broken clouds"
+        Weather.Type.CLOUDS_FEW_CLOUDS -> "few clouds"
+        Weather.Type.RAIN -> "rain"
+        Weather.Type.RAIN_FREEZING_RAIN -> "freezing rain"
+        Weather.Type.RAIN_VERY_HEAVY_RAIN -> "very heavy rain"
+        Weather.Type.RAIN_HEAVY_INTENSITY -> "heavy intensity rain"
+        Weather.Type.RAIN_MODERATE_RAIN -> "moderate rain"
+        Weather.Type.RAIN_LIGHT_RAIN -> "light rain"
+        Weather.Type.SNOW -> "snow"
+        Weather.Type.SNOW_LIGHT_SNOW -> "light snow"
+    }
 }
 
 // TODO - To rework

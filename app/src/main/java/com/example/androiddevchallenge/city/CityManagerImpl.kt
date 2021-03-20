@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.weather_current_city
+package com.example.androiddevchallenge.city
 
 import android.content.SharedPreferences
 
-class WeatherCurrentCityManagerImpl(
+class CityManagerImpl(
     private val sharedPreferences: SharedPreferences
-) : WeatherCurrentCityManager {
+) : CityManager {
 
-    private val listeners = ArrayList<WeatherCurrentCityManager.Listener>()
+    private val listeners = ArrayList<CityManager.Listener>()
     private var city = "Paris, France"
     private var loaded = false
 
@@ -39,14 +39,14 @@ class WeatherCurrentCityManagerImpl(
         save()
     }
 
-    override fun addListener(listener: WeatherCurrentCityManager.Listener) {
+    override fun addListener(listener: CityManager.Listener) {
         if (listeners.contains(listener)) {
             return
         }
         listeners.add(listener)
     }
 
-    override fun removeListener(listener: WeatherCurrentCityManager.Listener) {
+    override fun removeListener(listener: CityManager.Listener) {
         listeners.remove(listener)
     }
 

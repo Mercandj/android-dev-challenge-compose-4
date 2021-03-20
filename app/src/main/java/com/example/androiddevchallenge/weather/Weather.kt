@@ -15,6 +15,7 @@
  */
 package com.example.androiddevchallenge.weather
 
+import androidx.annotation.IntRange
 import com.example.androiddevchallenge.weather_unit.WeatherUnit
 
 data class Weather(
@@ -23,7 +24,9 @@ data class Weather(
     val type: Type,
     val temperature: Float,
     val humidity: Int,
-    val pressure: Int
+    val pressure: Int,
+    @IntRange(from = 0)
+    val offsetDayFromToday: Int
 ) {
 
     enum class Type {
@@ -42,5 +45,47 @@ data class Weather(
         RAIN_LIGHT_RAIN,
         SNOW,
         SNOW_LIGHT_SNOW
+    }
+
+    companion object {
+
+        val fakeWeathers = listOf(
+            Weather(
+                city = "Paris, France",
+                weatherUnit = WeatherUnit.METRIC,
+                type = Type.THUNDERSTORM,
+                temperature = 19f,
+                humidity = 90,
+                pressure = 900,
+                offsetDayFromToday = 0
+            ),
+            Weather(
+                city = "Paris, France",
+                weatherUnit = WeatherUnit.METRIC,
+                type = Type.CLOUDS,
+                temperature = 12f,
+                humidity = 90,
+                pressure = 900,
+                offsetDayFromToday = 1
+            ),
+            Weather(
+                city = "Paris, France",
+                weatherUnit = WeatherUnit.METRIC,
+                type = Type.CLEAR,
+                temperature = 30f,
+                humidity = 90,
+                pressure = 900,
+                offsetDayFromToday = 2
+            ),
+            Weather(
+                city = "Paris, France",
+                weatherUnit = WeatherUnit.METRIC,
+                type = Type.SNOW,
+                temperature = -2f,
+                humidity = 90,
+                pressure = 900,
+                offsetDayFromToday = 3
+            )
+        )
     }
 }

@@ -52,7 +52,8 @@ class WeatherApiManagerImpl(
             ),
             temperature = bodyJson.getJSONObject("main").getDouble("temp").toFloat(),
             humidity = bodyJson.getJSONObject("main").getInt("humidity"),
-            pressure = bodyJson.getJSONObject("main").getInt("pressure")
+            pressure = bodyJson.getJSONObject("main").getInt("pressure"),
+            offsetDayFromToday = 0
         )
     }
 
@@ -94,7 +95,8 @@ class WeatherApiManagerImpl(
                 ),
                 temperature = json.getJSONObject("temp").getDouble("day").toFloat(),
                 humidity = json.getInt("humidity"),
-                pressure = json.getInt("pressure")
+                pressure = json.getInt("pressure"),
+                offsetDayFromToday = i + 1
             )
             weathers.add(weather)
         }

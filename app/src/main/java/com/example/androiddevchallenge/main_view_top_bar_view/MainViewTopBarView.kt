@@ -89,9 +89,9 @@ fun MainViewTopBarView(
         }
         NeumorphismCardSquareView(
             modifier = Modifier
-                .height(160.dp)
+                .height(110.dp)
                 .width(160.dp)
-                .padding(start = 24.dp, end = 24.dp)
+                .padding(start = 24.dp, end = 0.dp)
         ) {
             Box(
                 modifier = Modifier
@@ -105,7 +105,6 @@ fun MainViewTopBarView(
                         }
                     )
             ) {
-
                 Text(
                     modifier = Modifier
                         .align(Alignment.Center)
@@ -184,7 +183,7 @@ private class Mvp(
         }
         return MainViewTopBarViewPresenter(
             createScreen(),
-            WeatherGraph.getWeatherCurrentCityManager(),
+            WeatherGraph.getCityManager(),
             WeatherGraph.getWeatherRepository()
         )
     }

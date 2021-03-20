@@ -135,7 +135,8 @@ class WeatherRepositoryImpl(
             },
             temperature = getDouble("temperature").toFloat(),
             humidity = getInt("humidity"),
-            pressure = getInt("pressure")
+            pressure = getInt("pressure"),
+            offsetDayFromToday = getInt("offset_day_from_today") // Bad to save that like that
         )
     }
 
@@ -189,6 +190,7 @@ class WeatherRepositoryImpl(
         jsonObject.put("temperature", temperature)
         jsonObject.put("humidity", humidity)
         jsonObject.put("pressure", pressure)
+        jsonObject.put("offset_day_from_today", offsetDayFromToday) // Bad to save that
         return jsonObject
     }
 

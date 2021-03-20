@@ -68,6 +68,7 @@ android {
             // Split resources.
             // https://medium.com/google-developer-experts/android-project-structure-alternative-way-29ce766682f0#.sjnhetuhb
             res.srcDirs = [
+                    'src/main/res/city_edit_view',
                     'src/main/res/icon',
                     'src/main/res/main',
                     'src/main/res/main_weather_animated_view',
@@ -90,6 +91,9 @@ dependencies {
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
     implementation "androidx.annotation:annotation:1.1.0"
+
+    // https://github.com/fornewid/neumorphism
+    implementation 'com.github.fornewid:neumorphism:0.3.0'
 
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0'

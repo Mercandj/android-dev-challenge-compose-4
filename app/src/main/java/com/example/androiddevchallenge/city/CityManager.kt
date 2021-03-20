@@ -13,26 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.weather
+package com.example.androiddevchallenge.city
 
-import com.example.androiddevchallenge.city.CityManager
-import com.example.androiddevchallenge.weather_api.WeatherApiManager
-import com.example.androiddevchallenge.weather_repository.WeatherRepository
+interface CityManager {
 
-class WeatherManagerImpl(
-    private val weatherApiManager: WeatherApiManager,
-    private val cityManager: CityManager,
-    private val weatherRepository: WeatherRepository,
-    private val addOn: AddOn
-) : WeatherManager {
+    fun getCity(): String
 
-    override fun load() {
-    }
+    fun setCity(city: String)
 
-    interface AddOn {
+    fun addListener(listener: Listener)
 
-        fun postWorkerThread(runnable: Runnable)
+    fun removeListener(listener: Listener)
 
-        fun postMainThread(runnable: Runnable)
+    interface Listener {
+
+        fun onChanged()
     }
 }

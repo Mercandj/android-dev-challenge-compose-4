@@ -34,6 +34,12 @@ plugins {
     id 'com.diffplug.spotless' version '5.7.0'
 }
 
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+
 subprojects {
     repositories {
         google()

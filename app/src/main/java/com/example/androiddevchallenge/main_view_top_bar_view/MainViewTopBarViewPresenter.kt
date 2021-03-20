@@ -16,12 +16,12 @@
 package com.example.androiddevchallenge.main_view_top_bar_view
 
 import androidx.lifecycle.MutableLiveData
-import com.example.androiddevchallenge.weather_current_city.WeatherCurrentCityManager
+import com.example.androiddevchallenge.city.CityManager
 import com.example.androiddevchallenge.weather_repository.WeatherRepository
 
 class MainViewTopBarViewPresenter(
     private val screen: MainViewTopBarViewContract.Screen,
-    private val weatherCurrentCityManager: WeatherCurrentCityManager,
+    private val cityManager: CityManager,
     private val weatherRepository: WeatherRepository
 ) : MainViewTopBarViewContract.UserAction {
 
@@ -30,7 +30,7 @@ class MainViewTopBarViewPresenter(
 
     init {
         // Require remove call?
-        weatherCurrentCityManager.addListener(object : WeatherCurrentCityManager.Listener {
+        cityManager.addListener(object : CityManager.Listener {
             override fun onChanged() {
                 city.value = createCity()
             }
@@ -52,7 +52,7 @@ class MainViewTopBarViewPresenter(
     }
 
     private fun createCity(): String {
-        return weatherCurrentCityManager.getCity()
+        return cityManager.getCity()
     }
 
     private fun createTemperature(): String {

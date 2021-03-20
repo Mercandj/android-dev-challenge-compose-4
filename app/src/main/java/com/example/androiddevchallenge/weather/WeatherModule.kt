@@ -23,7 +23,7 @@ class WeatherModule {
     fun createWeatherManager(): WeatherManager {
         return WeatherManagerImpl(
             WeatherApiModule().createWeatherApiManager(),
-            WeatherGraph.getWeatherCurrentCityManager(),
+            WeatherGraph.getCityManager(),
             WeatherGraph.getWeatherRepository(),
             createWeatherManagerImplAddOn()
         )
