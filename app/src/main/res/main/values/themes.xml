@@ -19,7 +19,7 @@
         <item name="colorOnSecondary">#000000</item>
         <item name="colorShadowLight">#000000</item>
         <item name="colorShadowDark">#000000</item>
-        <item name="android:statusBarColor" tools:targetApi="l">#FFEEF0F5</item>
+        <item name="android:statusBarColor" tools:targetApi="l">#000000</item>
     </style>
 
     <style name="Theme.AndroidDevChallenge.NoActionBar">

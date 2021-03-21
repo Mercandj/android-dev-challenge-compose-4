@@ -29,6 +29,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -56,72 +57,80 @@ fun MainWeatherAnimatedView(
 ) {
     Box(
         modifier = modifier
-            .width(280.dp)
-            .height(280.dp)
+            .width(300.dp)
+            .height(300.dp)
     ) {
-        val circleScale by rememberInfiniteTransition().animateFloat(
-            initialValue = 2.3f,
-            targetValue = 2.4f,
-            animationSpec = infiniteRepeatable(
-                animation = tween(1000),
-                repeatMode = RepeatMode.Reverse
-            )
-        )
-        Image(
-            painter = painterResource(R.drawable.main_weather_animated_view_circle_with_shadow),
-            contentDescription = "Weather",
-            colorFilter = ColorFilter.tint(getCircleColor(weather)),
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .zIndex(0f)
-                .scale(circleScale)
-                .padding(
-                    start = 0.dp,
-                    top = 0.dp,
-                    end = 0.dp,
-                    bottom = 0.dp
+        if (weather == null) {
+            Box(modifier = Modifier.align(Alignment.Center)) {
+                CircularProgressIndicator(
+                    modifier = modifier
+                        .width(40.dp)
+                        .height(40.dp)
                 )
-                .align(Alignment.Center)
-        )
-        val circleGradientScale by rememberInfiniteTransition().animateFloat(
-            initialValue = 0.8f,
-            targetValue = 0.85f,
-            animationSpec = infiniteRepeatable(
-                animation = tween(1000),
-                repeatMode = RepeatMode.Reverse
+            }
+        } else {
+            val circleScale by rememberInfiniteTransition().animateFloat(
+                initialValue = 1.8f,
+                targetValue = 1.9f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(1000),
+                    repeatMode = RepeatMode.Reverse
+                )
             )
-        )
-        Image(
-            painter = painterResource(R.drawable.main_weather_animated_view_circle_gradient_yellow),
-            contentDescription = "Weather",
-            colorFilter = ColorFilter.tint(getCircleColor(weather)),
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .scale(circleGradientScale)
-                .zIndex(1f)
-                .align(Alignment.Center)
-        )
-        val figureScale by rememberInfiniteTransition().animateFloat(
-            initialValue = 1.0f,
-            targetValue = 1.12f,
-            animationSpec = infiniteRepeatable(
-                animation = tween(1000),
-                repeatMode = RepeatMode.Reverse
+            Image(
+                painter = painterResource(R.drawable.main_weather_animated_view_circle_with_shadow),
+                contentDescription = "Weather",
+                colorFilter = ColorFilter.tint(getCircleColor(weather)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .zIndex(0f)
+                    .scale(circleScale)
+                    .padding(
+                        start = 0.dp,
+                        top = 0.dp,
+                        end = 0.dp,
+                        bottom = 0.dp
+                    )
+                    .align(Alignment.Center)
             )
-        )
-        Image(
-            painter = painterResource(getFigureDrawableRes(weather = weather)),
-            contentDescription = "Weather figure",
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .scale(figureScale)
-                .zIndex(2f)
-                .align(Alignment.Center)
-        )
-        if (weather != null) {
+            val circleGradientScale by rememberInfiniteTransition().animateFloat(
+                initialValue = 0.6f,
+                targetValue = 0.65f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(1000),
+                    repeatMode = RepeatMode.Reverse
+                )
+            )
+            Image(
+                painter = painterResource(R.drawable.main_weather_animated_view_circle_gradient_yellow),
+                contentDescription = "Weather",
+                colorFilter = ColorFilter.tint(getCircleColor(weather)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .scale(circleGradientScale)
+                    .zIndex(1f)
+                    .align(Alignment.Center)
+            )
+            val figureScale by rememberInfiniteTransition().animateFloat(
+                initialValue = 0.96f,
+                targetValue = 1.08f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(1000),
+                    repeatMode = RepeatMode.Reverse
+                )
+            )
+            Image(
+                painter = painterResource(getFigureDrawableRes(weather = weather)),
+                contentDescription = "Weather figure",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .scale(figureScale)
+                    .zIndex(2f)
+                    .align(Alignment.Center)
+            )
             Box(
                 modifier = Modifier
                     .zIndex(3f)
@@ -130,8 +139,8 @@ fun MainWeatherAnimatedView(
             ) {
                 WeatherIconView(
                     modifier = Modifier
-                        .width(180.dp)
-                        .height(180.dp),
+                        .width(160.dp)
+                        .height(160.dp),
                     weatherType = weather.type
                 )
             }
@@ -139,7 +148,7 @@ fun MainWeatherAnimatedView(
                 modifier = Modifier
                     .zIndex(3f)
                     .align(Alignment.BottomEnd)
-                    .offset(x = 50.dp, y = 50.dp)
+                    .offset(x = 36.dp, y = 46.dp)
             ) {
                 WeatherIconView(
                     modifier = Modifier
@@ -188,8 +197,8 @@ private fun getCircleColor(weather: Weather?): Color {
             Weather.Type.THUNDERSTORM -> Color(0xFFDDC600)
             Weather.Type.DRIZZLE -> Color(0xFFDDC600)
             Weather.Type.CLOUDS -> Color(0xFF838383)
-            Weather.Type.CLOUDS_SCATTERED_CLOUDS -> Color(0xFF838383)
-            Weather.Type.CLOUDS_BROKEN_CLOUDS -> Color(0xFF838383)
+            Weather.Type.CLOUDS_SCATTERED_CLOUDS -> Color(0xFFBDBDBD)
+            Weather.Type.CLOUDS_BROKEN_CLOUDS -> Color(0xFFBDBDBD)
             Weather.Type.CLOUDS_FEW_CLOUDS -> Color(0xFFDDC600)
             Weather.Type.RAIN -> Color(0xFF30B0D3)
             Weather.Type.RAIN_FREEZING_RAIN -> Color(0xFF30B0D3)

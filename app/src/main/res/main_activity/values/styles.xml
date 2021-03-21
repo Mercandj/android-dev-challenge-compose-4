@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.AndroidDevChallenge.NoActionBar.MainActivityTheme">
+        <item name="android:windowBackground">@drawable/main_activity_splash_background</item>
+    </style>
+
+</resources>

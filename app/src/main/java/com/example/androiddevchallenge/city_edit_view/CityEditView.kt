@@ -15,6 +15,9 @@
  */
 package com.example.androiddevchallenge.city_edit_view
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -185,7 +188,8 @@ fun CityEditView(
                 Text(
                     text =
                     "Done by Jonathan Mercandalli (Mercandj on GitHub)\n\n" +
-                        "Done for the Jetpack compose challenge week 4.",
+                        "Done for the Jetpack compose challenge week 4.\n\n" +
+                        "Support Light and Dark theme. UI neumorphism.",
                     fontSize = 12.sp,
                     fontWeight = FontWeight(700)
                 )
@@ -258,6 +262,13 @@ fun CityEditViewDarkPreview() {
 }
 
 private fun openUrl(url: String) {
+    val context = WeatherGraph.getContext()
+    val uri = Uri.parse(url)
+    val intent = Intent(Intent.ACTION_VIEW, uri)
+    if (context !is Activity) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    }
+    context.startActivity(intent)
 }
 
 private class Mvp(

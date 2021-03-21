@@ -71,6 +71,8 @@ android {
                     'src/main/res/city_edit_view',
                     'src/main/res/icon',
                     'src/main/res/main',
+                    'src/main/res/main_activity',
+                    'src/main/res/main_activity_splash_dark',
                     'src/main/res/main_weather_animated_view',
                     'src/main/res/main_weather_animated_view_figure',
                     'src/main/res/theme',

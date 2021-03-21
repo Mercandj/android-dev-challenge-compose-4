@@ -27,7 +27,7 @@
             android:name=".main_activity.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AndroidDevChallenge.NoActionBar">
+            android:theme="@style/Theme.AndroidDevChallenge.NoActionBar.MainActivityTheme">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
