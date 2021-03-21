@@ -44,7 +44,7 @@ class MainViewPresenter(
         weathers.value = createWeathers()
     }
 
-    private fun updateError(){
+    private fun updateError() {
         error.value = createError()
     }
 
@@ -52,7 +52,7 @@ class MainViewPresenter(
         return weatherManager.getWeathers()
     }
 
-    private fun createError(): Boolean{
+    private fun createError(): Boolean {
         return weatherManager.getWeathers().size < 4
     }
 

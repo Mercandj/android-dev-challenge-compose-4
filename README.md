@@ -7,7 +7,8 @@
 ## :scroll: Description
 <!--- Describe your app in one or two sentences -->
 
-Neumorphism simple weather app that support different temperature units and cities.
+* Neumorphism simple weather app that support different temperature units and cities.
+* Based on [Jetpack Compose](https://developer.android.com/jetpack/compose) and [openweathermap.org](https://openweathermap.org/), built for the [Jetpack Compose challenge](https://developer.android.com/dev-challenge) week 4.
 
 ## :bulb: Motivation and Context
 <!--- Optionally point readers to interesting parts of your submission. -->
@@ -52,39 +53,14 @@ Even if the spirit seems to be reactive paradigm, I will try to use it on a more
 - Great UI / Great app quality (app we can publish on Google Play)
 
 **Requirement if you a coming from "stable Android Studio" on MacOs**
-- Download Java 11 here https://jdk.java.net/archive/
+- Download Java 11 (for example [here](https://jdk.java.net/archive/))
 - Add it like that: `/Users/jonathan/Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk`
-- If cannot open the jdk: https://superuser.com/a/1537706
+- If cannot open the jdk due to mac os permission, [here](https://superuser.com/a/1537706) a tip)
 
 **Thank you to Figma and this links:**
-- https://www.figma.com/file/K940hjRsZGY6LrOdvJeV28/Untitled?node-id=201%3A2
-- https://www.figma.com/file/kCYEnx8j7LCxOiBcr2sjFM/Weatherly-3D-Icons-Demo-version-Community?node-id=0%3A10
-- https://www.figma.com/community/file/890095002328610853
-- https://www.figma.com/file/LfxPlArXOlJ74YNfQwpz8s/SALY---3D-Illustration-Pack-(Community)?node-id=0%3A1
-- https://github.com/fornewid/neumorphism
-
-## Initial readme info
-
-### Getting started
-Copy this repository by pressing the "Use this template" button in Github.
-Clone your repository and open it in the latest [Android Studio (Canary build)](https://developer.android.com/studio/preview).
-
-### Submission requirements
-- Follow the challenge description on the project website: [developer.android.com/dev-challenge](https://developer.android.com/dev-challenge)
-- All UI should be written using Jetpack Compose
-- The Github Actions workflow should complete successfully
-- Include two screenshots of your submission in the [results](results) folder. The names should be
-  screenshot_1.png and screenshot_2.png.
-- Include a screen record of your submission in the [results](results) folder. The name should be
-  video.mp4
-- Replace the contents of [README.md](README.md) with the contents of [README-template.md](README-template.md) and fill out the template.
-
-### Code formatting
-The CI uses [Spotless](https://github.com/diffplug/spotless) to check if your code is formatted correctly and contains the right licenses.
-Internally, Spotless uses [ktlint](https://github.com/pinterest/ktlint) to check the formatting of your code.
-To set up ktlint correctly with Android Studio, follow one of the [listed setup options](https://github.com/pinterest/ktlint#-with-intellij-idea).
-
-Before committing your code, run `./gradlew app:spotlessApply` to automatically format your code.
+- [Edwin.P that introduce me to Figma](https://www.figma.com/file/K940hjRsZGY6LrOdvJeV28/Untitled?node-id=201%3A2)
+- Designers on figma that provide images [here](https://www.figma.com/file/kCYEnx8j7LCxOiBcr2sjFM/Weatherly-3D-Icons-Demo-version-Community?node-id=0%3A10), [here](https://www.figma.com/community/file/890095002328610853) and [here](https://www.figma.com/file/LfxPlArXOlJ74YNfQwpz8s/SALY---3D-Illustration-Pack-(Community)?node-id=0%3A1)
+- The neumorphism library [here](https://github.com/fornewid/neumorphism)
 
 ## License
 ```

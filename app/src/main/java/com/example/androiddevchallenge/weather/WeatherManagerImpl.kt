@@ -83,7 +83,7 @@ class WeatherManagerImpl(
         weathers.addAll(
             weatherRepository.getWeatherForecastDaily().filter {
                 dateManager.convertTimestampToSpecificFormat1(it.timestampSecond) !=
-                        dateManager.convertTimestampToSpecificFormat1(weather.timestampSecond)
+                    dateManager.convertTimestampToSpecificFormat1(weather.timestampSecond)
             }
         )
         return weathers
