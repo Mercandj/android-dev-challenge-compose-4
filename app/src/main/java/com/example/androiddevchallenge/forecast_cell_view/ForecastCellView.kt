@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.zIndex
 import com.example.androiddevchallenge.R
+import com.example.androiddevchallenge.graph.WeatherGraph
 import com.example.androiddevchallenge.main_view.MainViewBackgroundView
 import com.example.androiddevchallenge.theme.MainTheme
 import com.example.androiddevchallenge.theme.getTextPrimaryColor
@@ -88,7 +89,11 @@ fun ForecastCellView(
                     .padding(14.dp)
             ) {
                 if (weather == null) {
-                    Box(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight()
+                    ) {
                         CircularProgressIndicator(
                             modifier = Modifier
                                 .width(24.dp)
@@ -126,8 +131,10 @@ fun ForecastCellView(
                 .fillMaxWidth()
         ) {
             if (weather != null) {
+                // To put in presenter the text creation
                 Text(
-                    text = "Mon " + (18 + weather.offsetDayFromToday),
+                    text = WeatherGraph.getDateManager()
+                        .convertTimestampToSpecificFormat1(weather.timestampSecond),
                     fontSize = 12.sp,
                     fontWeight = FontWeight(900),
                     modifier = Modifier

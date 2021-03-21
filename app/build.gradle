@@ -73,7 +73,6 @@ android {
                     'src/main/res/main',
                     'src/main/res/main_weather_animated_view',
                     'src/main/res/main_weather_animated_view_figure',
-                    'src/main/res/neumorphism_card_square_view',
                     'src/main/res/theme',
                     'src/main/res/weather_icon_view'
             ]

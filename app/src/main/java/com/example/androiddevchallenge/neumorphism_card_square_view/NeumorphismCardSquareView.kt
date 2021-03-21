@@ -15,7 +15,8 @@
  */
 package com.example.androiddevchallenge.neumorphism_card_square_view
 
-import androidx.compose.foundation.Image
+import android.animation.AnimatorInflater
+import android.graphics.Color
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -26,41 +27,47 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.main_view.MainViewBackgroundView
 import com.example.androiddevchallenge.theme.MainTheme
+import soup.neumorphism.NeumorphImageButton
+import soup.neumorphism.ShapeType
 
 @Composable
 fun NeumorphismCardSquareView(
     modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
     content: @Composable BoxScope.() -> Unit
 ) {
     Box(
         modifier = modifier
     ) {
-        Image(
-            painter = painterResource(
-                if (MaterialTheme.colors.isLight) {
-                    R.drawable.test_light
-                } else {
-                    R.drawable.test_dark
-                }
-            ),
-            contentDescription = "Weather",
-            modifier = Modifier
+        val light = MaterialTheme.colors.isLight
+        val topStartShadowColor = if (light) "#C6CEDA" else "#101010"
+        val bottomEndShadowColor = if (light) "#FEFEFF" else "#262C37"
+        AndroidView(
+            modifier = modifier
                 .fillMaxWidth()
-                .fillMaxHeight()
-                .scale(
-                    if (MaterialTheme.colors.isLight) {
-                        1.0f
-                    } else {
-                        1.5f
+                .fillMaxHeight(),
+            factory = { context ->
+                NeumorphImageButton(context).apply {
+                    setShadowColorLight(Color.parseColor(bottomEndShadowColor))
+                    setShadowColorDark(Color.parseColor(topStartShadowColor))
+                    setShapeType(ShapeType.DEFAULT)
+                    stateListAnimator = AnimatorInflater.loadStateListAnimator(
+                        context,
+                        R.animator.button_state_list_anim_neumorph
+                    )
+                    if (onClick != null) {
+                        setOnClickListener {
+                            onClick()
+                        }
                     }
-                )
+                }
+            }
         )
         content()
     }

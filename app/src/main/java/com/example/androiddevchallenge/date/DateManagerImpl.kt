@@ -13,26 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.weather_repository
+package com.example.androiddevchallenge.date
 
-import com.example.androiddevchallenge.weather.Weather
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
-interface WeatherRepository {
+class DateManagerImpl : DateManager {
 
-    fun getWeather(): Weather?
-
-    fun setWeather(weather: Weather?)
-
-    fun getWeatherForecastDaily(): List<Weather>
-
-    fun setWeatherForecastDaily(weathers: List<Weather>)
-
-    fun addListener(listener: Listener)
-
-    fun removeListener(listener: Listener)
-
-    interface Listener {
-
-        fun onChanged()
+    override fun convertTimestampToSpecificFormat1(timestampSecond: Long): String {
+        val simpleDateFormat = SimpleDateFormat("E dd", Locale.US)
+        return simpleDateFormat.format(Date(timestampSecond * 1_000))
     }
 }

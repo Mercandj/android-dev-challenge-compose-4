@@ -15,8 +15,8 @@
  */
 package com.example.androiddevchallenge.weather
 
-import androidx.annotation.IntRange
 import com.example.androiddevchallenge.weather_unit.WeatherUnit
+import java.util.concurrent.TimeUnit
 
 data class Weather(
     val city: String,
@@ -25,9 +25,14 @@ data class Weather(
     val temperature: Float,
     val humidity: Int,
     val pressure: Int,
-    @IntRange(from = 0)
-    val offsetDayFromToday: Int
+    val timestampSecond: Long
 ) {
+
+    init {
+        if (timestampSecond < 10_000) {
+            throw IllegalStateException("Timestamp < 10_000: $timestampSecond")
+        }
+    }
 
     enum class Type {
         CLEAR,
@@ -58,7 +63,7 @@ data class Weather(
                 temperature = 19f,
                 humidity = 90,
                 pressure = 900,
-                offsetDayFromToday = 0
+                timestampSecond = 1616321094
             ),
             Weather(
                 city = "Paris, France",
@@ -67,7 +72,7 @@ data class Weather(
                 temperature = 12f,
                 humidity = 90,
                 pressure = 900,
-                offsetDayFromToday = 1
+                timestampSecond = 1616321094 + TimeUnit.DAYS.toMillis(1)
             ),
             Weather(
                 city = "Paris, France",
@@ -76,7 +81,7 @@ data class Weather(
                 temperature = 30f,
                 humidity = 90,
                 pressure = 900,
-                offsetDayFromToday = 2
+                timestampSecond = 1616321094 + TimeUnit.DAYS.toMillis(2)
             ),
             Weather(
                 city = "Paris, France",
@@ -85,7 +90,7 @@ data class Weather(
                 temperature = -2f,
                 humidity = 90,
                 pressure = 900,
-                offsetDayFromToday = 3
+                timestampSecond = 1616321094 + TimeUnit.DAYS.toMillis(3)
             )
         )
     }

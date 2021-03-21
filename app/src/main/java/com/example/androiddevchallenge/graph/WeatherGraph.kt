@@ -18,6 +18,7 @@ package com.example.androiddevchallenge.graph
 import android.annotation.SuppressLint
 import android.content.Context
 import com.example.androiddevchallenge.city.CityModule
+import com.example.androiddevchallenge.date.DateModule
 import com.example.androiddevchallenge.network.NetworkModule
 import com.example.androiddevchallenge.theme.ThemeModule
 import com.example.androiddevchallenge.weather.WeatherModule
@@ -28,8 +29,10 @@ class WeatherGraph private constructor(
 ) {
 
     private val cityManager by lazy { CityModule().createCityManager() }
+    private val dateManager by lazy { DateModule().createDateManager() }
     private val networkManager by lazy { NetworkModule().createNetworkManager() }
     private val themeManager by lazy { ThemeModule().createThemeManager() }
+    private val weatherGraphInitializationManager by lazy { WeatherGraphInitializationModule().createWeatherGraphInitializationManager() }
     private val weatherManager by lazy { WeatherModule().createWeatherManager() }
     private val weatherUnitManager by lazy { WeatherUnitModule().createWeatherUnitManager() }
 
@@ -43,9 +46,11 @@ class WeatherGraph private constructor(
                 return
             }
             graph = WeatherGraph(context.applicationContext)
+            graph!!.weatherGraphInitializationManager.initialize()
         }
 
         fun getCityManager() = graph!!.cityManager
+        fun getDateManager() = graph!!.dateManager
         fun getContext() = graph!!.context
         fun getNetworkManager() = graph!!.networkManager
         fun getThemeManager() = graph!!.themeManager

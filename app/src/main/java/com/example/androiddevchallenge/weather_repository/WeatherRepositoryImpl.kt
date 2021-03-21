@@ -35,12 +35,7 @@ class WeatherRepositoryImpl(
         return weather
     }
 
-    override fun getWeatherForecastDaily(): List<Weather> {
-        loadIfNeeded()
-        return ArrayList(weatherForecastDaily)
-    }
-
-    override fun setWeather(weather: Weather) {
+    override fun setWeather(weather: Weather?) {
         loadIfNeeded()
         if (this.weather == weather) {
             return
@@ -50,6 +45,11 @@ class WeatherRepositoryImpl(
         for (listener in listeners) {
             listener.onChanged()
         }
+    }
+
+    override fun getWeatherForecastDaily(): List<Weather> {
+        loadIfNeeded()
+        return ArrayList(weatherForecastDaily)
     }
 
     override fun setWeatherForecastDaily(weathers: List<Weather>) {
@@ -137,7 +137,7 @@ class WeatherRepositoryImpl(
             temperature = getDouble("temperature").toFloat(),
             humidity = getInt("humidity"),
             pressure = getInt("pressure"),
-            offsetDayFromToday = getInt("offset_day_from_today") // Bad to save that like that
+            timestampSecond = getLong("timestamp_second")
         )
     }
 
@@ -192,7 +192,7 @@ class WeatherRepositoryImpl(
         jsonObject.put("temperature", temperature)
         jsonObject.put("humidity", humidity)
         jsonObject.put("pressure", pressure)
-        jsonObject.put("offset_day_from_today", offsetDayFromToday) // Bad to save that
+        jsonObject.put("timestamp_second", timestampSecond)
         return jsonObject
     }
 

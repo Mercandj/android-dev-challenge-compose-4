@@ -13,26 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.weather_repository
+package com.example.androiddevchallenge.date
 
-import com.example.androiddevchallenge.weather.Weather
+interface DateManager {
 
-interface WeatherRepository {
-
-    fun getWeather(): Weather?
-
-    fun setWeather(weather: Weather?)
-
-    fun getWeatherForecastDaily(): List<Weather>
-
-    fun setWeatherForecastDaily(weathers: List<Weather>)
-
-    fun addListener(listener: Listener)
-
-    fun removeListener(listener: Listener)
-
-    interface Listener {
-
-        fun onChanged()
-    }
+    // Mon 18
+    fun convertTimestampToSpecificFormat1(timestamp: Long): String
 }

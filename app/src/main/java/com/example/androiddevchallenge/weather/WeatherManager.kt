@@ -24,6 +24,8 @@ interface WeatherManager {
      */
     fun getWeathers(): List<Weather>
 
+    fun clearCache()
+
     fun addListener(listener: Listener)
 
     fun removeListener(listener: Listener)

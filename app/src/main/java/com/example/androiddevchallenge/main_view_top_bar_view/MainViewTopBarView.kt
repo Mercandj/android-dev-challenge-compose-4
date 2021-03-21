@@ -58,11 +58,13 @@ fun MainViewTopBarView(
     val textColor = MaterialTheme.colors.getMainViewTopBarViewTextColor()
     val userAction = Mvp(preview).createUserAction()
     val cityState by userAction.getCity().observeAsState()
+    val dateState by userAction.getDate().observeAsState()
     val temperatureState by userAction.getTemperature().observeAsState()
     Row(
         modifier = modifier
+            .fillMaxWidth()
             .wrapContentHeight()
-            .fillMaxWidth(),
+            .padding(end = 20.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(
@@ -80,7 +82,7 @@ fun MainViewTopBarView(
                     .wrapContentHeight()
             )
             Text(
-                text = "Mon 18",
+                text = dateState!!,
                 fontSize = 22.sp,
                 color = Color(0xFFFDE807),
                 fontWeight = FontWeight(900),
@@ -90,9 +92,11 @@ fun MainViewTopBarView(
         }
         NeumorphismCardSquareView(
             modifier = Modifier
-                .width(160.dp)
-                .height(110.dp)
-                .padding(start = 24.dp, end = 0.dp)
+                .width(110.dp)
+                .height(110.dp),
+            onClick = {
+                userAction.onTemperatureClick()
+            }
         ) {
             Box(
                 modifier = Modifier
@@ -100,11 +104,6 @@ fun MainViewTopBarView(
                     .height(90.dp)
                     .align(Alignment.Center)
                     .zIndex(2f)
-                    .clickable(
-                        onClick = {
-                            userAction.onTemperatureClick()
-                        }
-                    )
             ) {
                 Text(
                     modifier = Modifier
@@ -185,8 +184,10 @@ private class Mvp(
         if (preview) {
             return object : MainViewTopBarViewContract.UserAction {
                 private var city = MutableLiveData("Paris, France")
+                private var date = MutableLiveData("Mon 18")
                 private var temperature = MutableLiveData("28°")
                 override fun getCity(): MutableLiveData<String> = city
+                override fun getDate(): MutableLiveData<String> = date
                 override fun getTemperature(): MutableLiveData<String> = temperature
                 override fun onTemperatureClick() {}
                 override fun onCityClicked() {}
@@ -195,6 +196,7 @@ private class Mvp(
         return MainViewTopBarViewPresenter(
             createScreen(),
             WeatherGraph.getCityManager(),
+            WeatherGraph.getDateManager(),
             WeatherGraph.getWeatherManager()
         )
     }

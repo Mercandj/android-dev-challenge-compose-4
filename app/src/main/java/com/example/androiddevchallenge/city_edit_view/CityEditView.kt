@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -32,11 +33,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -45,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.androiddevchallenge.R
+import com.example.androiddevchallenge.graph.WeatherGraph
 import com.example.androiddevchallenge.main_view.MainViewBackgroundView
 import com.example.androiddevchallenge.theme.MainTheme
 import com.example.androiddevchallenge.theme.getTextHintColor
@@ -52,12 +57,15 @@ import com.example.androiddevchallenge.theme.getTextPrimaryColor
 import soup.neumorphism.NeumorphImageButton
 import soup.neumorphism.ShapeType
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun CityEditView(
     modifier: Modifier = Modifier,
     preview: Boolean = false
 ) {
     val height = 90.dp
+    val userAction = Mvp(preview = preview).createUserAction()
+    val keyboardController = LocalSoftwareKeyboardController.current
     Box(
         Modifier.padding(start = 12.dp, end = 12.dp)
     ) {
@@ -103,10 +111,19 @@ fun CityEditView(
                     fontSize = 14.sp,
                     fontWeight = FontWeight(900)
                 ),
-                keyboardOptions = KeyboardOptions(
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        keyboardController?.hideSoftwareKeyboard()
+                        userAction.onCityValidated(text.text)
+                        text = TextFieldValue("")
+                        hintVisible = true
+                    }
+                ),
+                keyboardOptions = KeyboardOptions.Default.copy(
                     capitalization = KeyboardCapitalization.None,
                     autoCorrect = false,
-                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Done,
+                    keyboardType = KeyboardType.Text
                 ),
                 singleLine = true,
                 maxLines = 1,
@@ -158,5 +175,25 @@ fun CityEditViewDarkPreview() {
                 CityEditView(preview = true)
             }
         }
+    }
+}
+
+private class Mvp(
+    private val preview: Boolean
+) {
+
+    private fun createScreen() = object : CityEditViewContract.Screen {
+    }
+
+    fun createUserAction(): CityEditViewContract.UserAction {
+        if (preview) {
+            return object : CityEditViewContract.UserAction {
+                override fun onCityValidated(text: String) {}
+            }
+        }
+        return CityEditViewPresenter(
+            createScreen(),
+            WeatherGraph.getCityManager()
+        )
     }
 }

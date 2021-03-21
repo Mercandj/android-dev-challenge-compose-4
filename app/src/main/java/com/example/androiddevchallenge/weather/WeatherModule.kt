@@ -28,6 +28,7 @@ class WeatherModule {
         return WeatherManagerImpl(
             WeatherApiModule().createWeatherApiManager(),
             WeatherGraph.getCityManager(),
+            WeatherGraph.getDateManager(),
             WeatherRepositoryModule().createWeatherRepository(),
             WeatherGraph.getWeatherUnitManager(),
             createWeatherManagerImplAddOn()

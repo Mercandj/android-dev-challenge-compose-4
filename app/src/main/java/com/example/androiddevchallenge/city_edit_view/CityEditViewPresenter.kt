@@ -13,26 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.weather_repository
+package com.example.androiddevchallenge.city_edit_view
 
-import com.example.androiddevchallenge.weather.Weather
+import com.example.androiddevchallenge.city.CityManager
 
-interface WeatherRepository {
+class CityEditViewPresenter(
+    private val screen: CityEditViewContract.Screen,
+    private val cityManager: CityManager
+) : CityEditViewContract.UserAction {
 
-    fun getWeather(): Weather?
-
-    fun setWeather(weather: Weather?)
-
-    fun getWeatherForecastDaily(): List<Weather>
-
-    fun setWeatherForecastDaily(weathers: List<Weather>)
-
-    fun addListener(listener: Listener)
-
-    fun removeListener(listener: Listener)
-
-    interface Listener {
-
-        fun onChanged()
+    override fun onCityValidated(text: String) {
+        cityManager.setCity(text)
     }
 }

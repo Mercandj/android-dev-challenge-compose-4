@@ -13,26 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.weather_repository
+package com.example.androiddevchallenge.graph
 
-import com.example.androiddevchallenge.weather.Weather
+import com.example.androiddevchallenge.city.CityManager
+import com.example.androiddevchallenge.weather.WeatherManager
 
-interface WeatherRepository {
+class WeatherGraphInitializationManagerImpl(
+    private val cityManager: CityManager,
+    private val weatherManager: WeatherManager
+) : WeatherGraphInitializationManager {
 
-    fun getWeather(): Weather?
+    override fun initialize() {
+        cityManager.addListener(createCityListener())
+    }
 
-    fun setWeather(weather: Weather?)
-
-    fun getWeatherForecastDaily(): List<Weather>
-
-    fun setWeatherForecastDaily(weathers: List<Weather>)
-
-    fun addListener(listener: Listener)
-
-    fun removeListener(listener: Listener)
-
-    interface Listener {
-
-        fun onChanged()
+    private fun createCityListener() = object : CityManager.Listener {
+        override fun onChanged() {
+            weatherManager.clearCache()
+            weatherManager.load()
+        }
     }
 }

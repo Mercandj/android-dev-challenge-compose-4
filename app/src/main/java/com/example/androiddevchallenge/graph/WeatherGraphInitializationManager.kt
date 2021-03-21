@@ -13,26 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.weather_repository
+package com.example.androiddevchallenge.graph
 
-import com.example.androiddevchallenge.weather.Weather
+interface WeatherGraphInitializationManager {
 
-interface WeatherRepository {
-
-    fun getWeather(): Weather?
-
-    fun setWeather(weather: Weather?)
-
-    fun getWeatherForecastDaily(): List<Weather>
-
-    fun setWeatherForecastDaily(weathers: List<Weather>)
-
-    fun addListener(listener: Listener)
-
-    fun removeListener(listener: Listener)
-
-    interface Listener {
-
-        fun onChanged()
-    }
+    fun initialize()
 }

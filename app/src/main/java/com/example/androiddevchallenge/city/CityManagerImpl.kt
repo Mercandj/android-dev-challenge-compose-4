@@ -37,6 +37,9 @@ class CityManagerImpl(
         }
         this.city = city
         save()
+        for (listener in listeners) {
+            listener.onChanged()
+        }
     }
 
     override fun addListener(listener: CityManager.Listener) {

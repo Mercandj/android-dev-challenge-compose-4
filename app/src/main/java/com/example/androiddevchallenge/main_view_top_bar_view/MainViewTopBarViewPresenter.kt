@@ -17,15 +17,18 @@ package com.example.androiddevchallenge.main_view_top_bar_view
 
 import androidx.lifecycle.MutableLiveData
 import com.example.androiddevchallenge.city.CityManager
+import com.example.androiddevchallenge.date.DateManager
 import com.example.androiddevchallenge.weather.WeatherManager
 
 class MainViewTopBarViewPresenter(
     private val screen: MainViewTopBarViewContract.Screen,
     private val cityManager: CityManager,
+    private val dateManager: DateManager,
     private val weatherManager: WeatherManager
 ) : MainViewTopBarViewContract.UserAction {
 
     private var city = MutableLiveData(createCity())
+    private var date = MutableLiveData(createDate())
     private var temperature = MutableLiveData(createTemperature())
 
     init {
@@ -36,6 +39,10 @@ class MainViewTopBarViewPresenter(
 
     override fun getCity(): MutableLiveData<String> {
         return city
+    }
+
+    override fun getDate(): MutableLiveData<String> {
+        return date
     }
 
     override fun getTemperature(): MutableLiveData<String> {
@@ -52,12 +59,21 @@ class MainViewTopBarViewPresenter(
         city.value = createCity()
     }
 
+    private fun updateDate() {
+        date.value = createDate()
+    }
+
     private fun updateTemperature() {
         temperature.value = createTemperature()
     }
 
     private fun createCity(): String {
         return cityManager.getCity()
+    }
+
+    private fun createDate(): String {
+        val weather = weatherManager.getWeathers().firstOrNull() ?: return ""
+        return dateManager.convertTimestampToSpecificFormat1(weather.timestampSecond)
     }
 
     private fun createTemperature(): String {
@@ -74,6 +90,7 @@ class MainViewTopBarViewPresenter(
 
     private fun createWeatherListener() = object : WeatherManager.Listener {
         override fun onChanged() {
+            updateDate()
             updateTemperature()
         }
     }

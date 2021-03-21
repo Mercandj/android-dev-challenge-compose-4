@@ -17,6 +17,7 @@ package com.example.androiddevchallenge.weather
 
 import android.util.Log
 import com.example.androiddevchallenge.city.CityManager
+import com.example.androiddevchallenge.date.DateManager
 import com.example.androiddevchallenge.weather_api.WeatherApiException
 import com.example.androiddevchallenge.weather_api.WeatherApiManager
 import com.example.androiddevchallenge.weather_repository.WeatherRepository
@@ -25,6 +26,7 @@ import com.example.androiddevchallenge.weather_unit.WeatherUnitManager
 class WeatherManagerImpl(
     private val weatherApiManager: WeatherApiManager,
     private val cityManager: CityManager,
+    private val dateManager: DateManager,
     private val weatherRepository: WeatherRepository,
     private val weatherUnitManager: WeatherUnitManager,
     private val addOn: AddOn
@@ -49,7 +51,7 @@ class WeatherManagerImpl(
                 weatherApiManager.getWeatherForecastDaily(
                     city = city,
                     weatherUnit = weatherUnit,
-                    numberOfDays = 3
+                    numberOfDays = 7
                 )
             } catch (e: WeatherApiException) {
                 Log.e("jm/debug", "load getWeatherForecastDaily: ", e)
@@ -73,8 +75,21 @@ class WeatherManagerImpl(
         val weathers = ArrayList<Weather>()
         val weather = weatherRepository.getWeather() ?: return weathers
         weathers.add(weather)
-        weathers.addAll(weatherRepository.getWeatherForecastDaily())
+        weathers.addAll(
+            weatherRepository.getWeatherForecastDaily().filter {
+                dateManager.convertTimestampToSpecificFormat1(it.timestampSecond) !=
+                    dateManager.convertTimestampToSpecificFormat1(weather.timestampSecond)
+            }
+        )
         return weathers
+    }
+
+    override fun clearCache() {
+        weatherRepository.setWeather(null)
+        weatherRepository.setWeatherForecastDaily(emptyList())
+        for (listener in listeners) {
+            listener.onChanged()
+        }
     }
 
     override fun addListener(listener: WeatherManager.Listener) {
