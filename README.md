@@ -7,6 +7,8 @@
 ## :scroll: Description
 <!--- Describe your app in one or two sentences -->
 
+Neumorphism simple weather app that support different temperature units and cities.
+
 ## :bulb: Motivation and Context
 <!--- Optionally point readers to interesting parts of your submission. -->
 <!--- What are you especially proud of? -->
@@ -18,6 +20,12 @@
    - Change the City
    - Change temperature Unit
 - The neumorphism UI
+
+## :camera_flash: Screenshots
+<!-- You can add more screenshots here if you like -->
+<img src="/results/screenshot_1_.png" width="260">&emsp;<img src="/results/screenshot_2_.png" width="260">&emsp;<img src="/results/screenshot_3.png" width="260">
+
+## Side notes
 
 This is the first time I'm trying Jetpack Compose.
 Even if the spirit seems to be reactive paradigm, I will try to use it on a more "classic" way.
@@ -31,12 +39,6 @@ Even if the spirit seems to be reactive paradigm, I will try to use it on a more
 - Discover Jetpack Compose
 - Split as much as possible logic from the UI with the good old "MVP"
 - Great UI / Great app quality (app we can publish on Google Play)
-
-## :camera_flash: Screenshots
-<!-- You can add more screenshots here if you like -->
-<img src="/results/screenshot_1.png" width="260">&emsp;<img src="/results/screenshot_2.png" width="260">&emsp;<img src="/results/screenshot_3.png" width="260">
-
-## Side notes
 
 **Requirement if you a coming from "stable Android Studio" on MacOs**
 - Download Java 11 here https://jdk.java.net/archive/
