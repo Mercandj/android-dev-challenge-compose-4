@@ -23,9 +23,10 @@ Neumorphism simple weather app that support different temperature units and citi
 
 ## :camera_flash: Screenshots
 <!-- You can add more screenshots here if you like -->
-<img src="/results/screenshot_1_.png" width="260">&emsp;<img src="/results/screenshot_2_.png" width="260">&emsp;<img src="/results/screenshot_3.png" width="260">
-
+<img src="/results/screenshot_1.png" width="260">&emsp;<img src="/results/screenshot_2.png" width="260">
 &emsp;<img width="260" src="/results/vide_as_gif.gif"/>
+&emsp;<img src="/results/screenshot_3.png" width="260">
+&emsp;<img src="/results/screenshot_4.png" width="260">
 
 ## Side notes
 
