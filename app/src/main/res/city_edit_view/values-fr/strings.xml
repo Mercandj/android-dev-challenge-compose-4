@@ -9,5 +9,12 @@
       or implied. See the License for the specific language governing permissions and limitations under
       the License.
       -->
-    <string name="app_name" translatable="false">C-Weather</string>
+    <string name="city_edit_view_hint">Ville</string>
+    <string name="city_edit_view_icon_content_description">Cherche une ville</string>
+    <string name="city_edit_view_dialog_title">C-Weather</string>
+    <string name="city_edit_view_dialog_subtitle">Fait par Jonathan Mercandalli (Mercandj sur GitHub)
+\n\n
+Fait pour le challenge de Jetpack compose de la semaine 4.
+\n\n
+Supporte les 2 themes: sombre et clair. L\'interface graphique est neumorphism.</string>
 </resources>

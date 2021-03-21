@@ -69,6 +69,7 @@ android {
             // https://medium.com/google-developer-experts/android-project-structure-alternative-way-29ce766682f0#.sjnhetuhb
             res.srcDirs = [
                     'src/main/res/city_edit_view',
+                    'src/main/res/error_view',
                     'src/main/res/icon',
                     'src/main/res/main',
                     'src/main/res/main_activity',

@@ -22,7 +22,8 @@ import java.util.Locale
 class DateManagerImpl : DateManager {
 
     override fun convertTimestampToSpecificFormat1(timestampSecond: Long): String {
-        val simpleDateFormat = SimpleDateFormat("E dd", Locale.US)
-        return simpleDateFormat.format(Date(timestampSecond * 1_000))
+        val locale = Locale.getDefault()
+        val simpleDateFormat = SimpleDateFormat("E dd", locale)
+        return simpleDateFormat.format(Date(timestampSecond * 1_000)).capitalize(locale)
     }
 }

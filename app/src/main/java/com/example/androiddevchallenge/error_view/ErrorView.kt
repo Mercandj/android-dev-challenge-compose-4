@@ -26,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,7 +43,7 @@ fun ErrorView(
     Column {
         Spacer(modifier = Modifier.height(12.dp))
         Text(
-            text = "No weather found",
+            text = stringResource(R.string.error_view_title),
             fontSize = 28.sp,
             color = MaterialTheme.colors.getTextPrimaryColor(),
             fontWeight = FontWeight(900),
@@ -50,7 +51,7 @@ fun ErrorView(
         Spacer(modifier = Modifier.height(14.dp))
         Image(
             painter = painterResource(R.drawable.main_weather_animated_view_figure_7),
-            contentDescription = "No internet image",
+            contentDescription = stringResource(R.string.error_view_image_content_description),
             modifier = Modifier
                 .width(180.dp)
                 .height(180.dp)
@@ -58,7 +59,7 @@ fun ErrorView(
         )
         Spacer(modifier = Modifier.height(14.dp))
         Text(
-            text = "Possible reasons:",
+            text = stringResource(R.string.error_view_subtitle),
             modifier = Modifier.align(Alignment.CenterHorizontally),
             fontSize = 22.sp,
             color = MaterialTheme.colors.getTextSecondaryColor(),
@@ -66,21 +67,21 @@ fun ErrorView(
         )
         Spacer(modifier = Modifier.height(12.dp))
         Text(
-            text = "- The city is unknown",
+            text = stringResource(R.string.error_view_point_1),
             fontSize = 16.sp,
             color = MaterialTheme.colors.getTextThirdColor(),
             fontWeight = FontWeight(600),
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = "- You do not have internet",
+            text = stringResource(R.string.error_view_point_2),
             fontSize = 16.sp,
             color = MaterialTheme.colors.getTextThirdColor(),
             fontWeight = FontWeight(600),
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = "- The server is OFF",
+            text = stringResource(R.string.error_view_point_3),
             fontSize = 16.sp,
             color = MaterialTheme.colors.getTextThirdColor(),
             fontWeight = FontWeight(600),

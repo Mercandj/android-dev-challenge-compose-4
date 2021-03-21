@@ -9,5 +9,10 @@
       or implied. See the License for the specific language governing permissions and limitations under
       the License.
       -->
-    <string name="app_name" translatable="false">C-Weather</string>
+    <string name="error_view_title">Pas trouvé</string>
+    <string name="error_view_subtitle">Les raisons possibles:</string>
+    <string name="error_view_image_content_description">Image montrant que ça à raté</string>
+    <string name="error_view_point_1">- La ville rentrée n\'existe pas</string>
+    <string name="error_view_point_2">- Tu n\'as pas internet</string>
+    <string name="error_view_point_3">- Le server est OFF</string>
 </resources>

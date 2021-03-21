@@ -1,4 +1,4 @@
-# C-Weather: Compose your weather
+# C-Weather: Compose displays the weather
 
 <!--- Replace <OWNER> with your Github Username and <REPOSITORY> with the name of your repository. -->
 <!--- You can find both of these in the url bar when you open your repository in github. -->
@@ -32,7 +32,7 @@
 ## :camera_flash: Screenshots
 <!-- You can add more screenshots here if you like -->
 <img src="/results/screenshot_1.png" width="260">&emsp;<img src="/results/screenshot_2.png" width="260">
-&emsp;<img width="260" src="/results/vide_as_gif.gif"/>
+&emsp;<img width="260" src="/results/video_as_gif.gif"/>
 &emsp;<img src="/results/screenshot_3.png" width="260">
 &emsp;<img src="/results/screenshot_4.png" width="260">
 &emsp;<img src="/results/screenshot_5.png" width="260">
@@ -56,6 +56,9 @@ Even if the spirit seems to be reactive paradigm, I will try to use it on a more
 - Code and resources split by `feature` instead of `layer` to be able to scale
 - DepInjection done manually and user Dagger notions: graph, module, manager...
 - Basic MVP explicit in Contract interfaces
+
+**Bonus**
+- Translated in french 🇫🇷
 
 **Requirement if you a coming from "stable Android Studio" on MacOs**
 - Download Java 11 (for example [here](https://jdk.java.net/archive/))

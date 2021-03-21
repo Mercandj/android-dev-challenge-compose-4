@@ -44,6 +44,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -112,7 +113,7 @@ fun CityEditView(
                 leadingIcon = {
                     Image(
                         painter = painterResource(id = R.drawable.city_edit_view_loop),
-                        contentDescription = "search a city"
+                        contentDescription = stringResource(id = R.string.city_edit_view_icon_content_description)
                     )
                 },
                 trailingIcon = {
@@ -160,7 +161,7 @@ fun CityEditView(
             )
             if (hintVisible) {
                 Text(
-                    text = "City",
+                    text = stringResource(id = R.string.city_edit_view_hint),
                     color = MaterialTheme.colors.getTextHintColor(),
                     fontWeight = FontWeight(900),
                     fontSize = 14.sp,
@@ -179,17 +180,14 @@ fun CityEditView(
             },
             title = {
                 Text(
-                    text = "Weather app",
+                    text = stringResource(id = R.string.city_edit_view_dialog_title),
                     fontSize = 22.sp,
                     fontWeight = FontWeight(900)
                 )
             },
             text = {
                 Text(
-                    text =
-                    "Done by Jonathan Mercandalli (Mercandj on GitHub)\n\n" +
-                        "Done for the Jetpack compose challenge week 4.\n\n" +
-                        "Support Light and Dark theme. UI neumorphism.",
+                    text = stringResource(id = R.string.city_edit_view_dialog_subtitle),
                     fontSize = 12.sp,
                     fontWeight = FontWeight(700)
                 )
