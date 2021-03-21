@@ -25,6 +25,8 @@ Neumorphism simple weather app that support different temperature units and citi
 <!-- You can add more screenshots here if you like -->
 <img src="/results/screenshot_1_.png" width="260">&emsp;<img src="/results/screenshot_2_.png" width="260">&emsp;<img src="/results/screenshot_3.png" width="260">
 
+&emsp;<img width="260" src="/results/vide_as_gif.gif"/>
+
 ## Side notes
 
 This is the first time I'm trying Jetpack Compose.
