@@ -16,7 +16,6 @@
 package com.example.androiddevchallenge.neumorphism_card_square_view
 
 import android.animation.AnimatorInflater
-import android.graphics.Color
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -27,6 +26,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -40,6 +40,8 @@ import soup.neumorphism.ShapeType
 fun NeumorphismCardSquareView(
     modifier: Modifier = Modifier,
     onClick: (() -> Unit)? = null,
+    @ShapeType shapeType: Int = ShapeType.DEFAULT,
+    backgroundColor: Color = Color.Transparent,
     content: @Composable BoxScope.() -> Unit
 ) {
     Box(
@@ -54,9 +56,17 @@ fun NeumorphismCardSquareView(
                 .fillMaxHeight(),
             factory = { context ->
                 NeumorphImageButton(context).apply {
-                    setShadowColorLight(Color.parseColor(bottomEndShadowColor))
-                    setShadowColorDark(Color.parseColor(topStartShadowColor))
-                    setShapeType(ShapeType.DEFAULT)
+                    setShadowColorLight(android.graphics.Color.parseColor(bottomEndShadowColor))
+                    setShadowColorDark(android.graphics.Color.parseColor(topStartShadowColor))
+                    setShapeType(shapeType)
+                    setBackgroundColor(
+                        argb(
+                            backgroundColor.alpha,
+                            backgroundColor.red,
+                            backgroundColor.green,
+                            backgroundColor.blue
+                        )
+                    )
                     stateListAnimator = AnimatorInflater.loadStateListAnimator(
                         context,
                         R.animator.button_state_list_anim_neumorph
@@ -103,4 +113,11 @@ fun NeumorphismCardSquareViewDarkPreview() {
             }
         }
     }
+}
+
+private fun argb(alpha: Float, red: Float, green: Float, blue: Float): Int {
+    return (alpha * 255.0f + 0.5f).toInt() shl 24 or
+        ((red * 255.0f + 0.5f).toInt() shl 16) or
+        ((green * 255.0f + 0.5f).toInt() shl 8) or
+        (blue * 255.0f + 0.5f).toInt()
 }

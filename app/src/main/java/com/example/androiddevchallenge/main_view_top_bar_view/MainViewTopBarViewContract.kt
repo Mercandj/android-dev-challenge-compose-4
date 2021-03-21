@@ -16,6 +16,8 @@
 package com.example.androiddevchallenge.main_view_top_bar_view
 
 import androidx.lifecycle.MutableLiveData
+import com.example.androiddevchallenge.weather.Weather
+import com.example.androiddevchallenge.weather_unit.WeatherUnit
 
 interface MainViewTopBarViewContract {
 
@@ -27,9 +29,18 @@ interface MainViewTopBarViewContract {
 
         fun getTemperature(): MutableLiveData<String>
 
+        fun getWeatherType(): MutableLiveData<Weather.Type>
+
         fun onTemperatureClick()
 
         fun onCityClicked()
+
+        fun onTemperatureUnitClicked(weatherUnit: WeatherUnit)
+
+        /**
+         * @return True if current
+         */
+        fun onTemperatureUnitDisplay(metric: WeatherUnit): Boolean
     }
 
     interface Screen

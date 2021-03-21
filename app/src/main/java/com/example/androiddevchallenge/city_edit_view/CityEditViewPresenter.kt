@@ -16,6 +16,7 @@
 package com.example.androiddevchallenge.city_edit_view
 
 import com.example.androiddevchallenge.city.CityManager
+import java.util.Locale
 
 class CityEditViewPresenter(
     private val screen: CityEditViewContract.Screen,
@@ -23,6 +24,9 @@ class CityEditViewPresenter(
 ) : CityEditViewContract.UserAction {
 
     override fun onCityValidated(text: String) {
-        cityManager.setCity(text)
+        cityManager.setCity(text.capitalize(Locale.getDefault()))
+    }
+
+    override fun onInfoClicked() {
     }
 }

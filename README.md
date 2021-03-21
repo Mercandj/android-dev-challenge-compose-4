@@ -22,6 +22,13 @@ Even if the spirit seems to be reactive paradigm, I will try to use it on a more
 - Add it like that: `/Users/jonathan/Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk`
 - If cannot open the jdk: https://superuser.com/a/1537706
 
+**Thank you to Figma and this links:**
+- https://www.figma.com/file/K940hjRsZGY6LrOdvJeV28/Untitled?node-id=201%3A2
+- https://www.figma.com/file/kCYEnx8j7LCxOiBcr2sjFM/Weatherly-3D-Icons-Demo-version-Community?node-id=0%3A10
+- https://www.figma.com/community/file/890095002328610853
+- https://www.figma.com/file/LfxPlArXOlJ74YNfQwpz8s/SALY---3D-Illustration-Pack-(Community)?node-id=0%3A1
+- https://github.com/fornewid/neumorphism
+
 ## Getting started
 Copy this repository by pressing the "Use this template" button in Github.
 Clone your repository and open it in the latest [Android Studio (Canary build)](https://developer.android.com/studio/preview).

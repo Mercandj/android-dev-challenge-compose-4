@@ -16,12 +16,15 @@
 package com.example.androiddevchallenge.city_edit_view
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -51,7 +54,9 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.graph.WeatherGraph
 import com.example.androiddevchallenge.main_view.MainViewBackgroundView
+import com.example.androiddevchallenge.neumorphism_card_square_view.NeumorphismCardSquareView
 import com.example.androiddevchallenge.theme.MainTheme
+import com.example.androiddevchallenge.theme.getMainViewTopViewCardColor
 import com.example.androiddevchallenge.theme.getTextHintColor
 import com.example.androiddevchallenge.theme.getTextPrimaryColor
 import soup.neumorphism.NeumorphImageButton
@@ -64,6 +69,7 @@ fun CityEditView(
     preview: Boolean = false
 ) {
     val height = 90.dp
+    val infoDialogOpen = remember { mutableStateOf(false) }
     val userAction = Mvp(preview = preview).createUserAction()
     val keyboardController = LocalSoftwareKeyboardController.current
     Box(
@@ -103,7 +109,17 @@ fun CityEditView(
                 leadingIcon = {
                     Image(
                         painter = painterResource(id = R.drawable.city_edit_view_loop),
-                        contentDescription = "search"
+                        contentDescription = "search a city"
+                    )
+                },
+                trailingIcon = {
+                    Image(
+                        painter = painterResource(id = R.drawable.city_edit_view_ic_outline_info_24),
+                        contentDescription = "info about this app",
+                        modifier = Modifier.clickable {
+                            userAction.onInfoClicked()
+                            infoDialogOpen.value = true
+                        }
                     )
                 },
                 textStyle = TextStyle(
@@ -147,10 +163,73 @@ fun CityEditView(
                     fontSize = 14.sp,
                     modifier = Modifier
                         .align(Alignment.CenterStart)
-                        .padding(start = 74.dp, end = 74.dp)
+                        .padding(start = 81.dp, end = 74.dp)
                 )
             }
         }
+    }
+
+    if (infoDialogOpen.value) {
+        AlertDialog(
+            onDismissRequest = {
+                infoDialogOpen.value = false
+            },
+            title = {
+                Text(
+                    text = "Weather app",
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight(900)
+                )
+            },
+            text = {
+                Text(
+                    text =
+                    "Done by Jonathan Mercandalli (Mercandj on GitHub)\n\n" +
+                        "Done for the Jetpack compose challenge week 4.",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight(700)
+                )
+            },
+            backgroundColor = MaterialTheme.colors.getMainViewTopViewCardColor(),
+            confirmButton = {
+                Column {
+                    NeumorphismCardSquareView(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(80.dp),
+                        shapeType = ShapeType.DEFAULT,
+                        onClick = {
+                            openUrl("https://openweathermap.org/")
+                            infoDialogOpen.value = false
+                        }
+                    ) {
+                        Text(
+                            text = "openweathermap.org",
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight(900),
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
+                    NeumorphismCardSquareView(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(80.dp),
+                        shapeType = ShapeType.DEFAULT,
+                        onClick = {
+                            openUrl("https://github.com/Mercandj")
+                            infoDialogOpen.value = false
+                        }
+                    ) {
+                        Text(
+                            text = "Mercandj",
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight(900),
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
+                }
+            }
+        )
     }
 }
 
@@ -178,6 +257,9 @@ fun CityEditViewDarkPreview() {
     }
 }
 
+private fun openUrl(url: String) {
+}
+
 private class Mvp(
     private val preview: Boolean
 ) {
@@ -189,6 +271,7 @@ private class Mvp(
         if (preview) {
             return object : CityEditViewContract.UserAction {
                 override fun onCityValidated(text: String) {}
+                override fun onInfoClicked() {}
             }
         }
         return CityEditViewPresenter(

@@ -17,17 +17,27 @@ package com.example.androiddevchallenge.graph
 
 import com.example.androiddevchallenge.city.CityManager
 import com.example.androiddevchallenge.weather.WeatherManager
+import com.example.androiddevchallenge.weather_unit.WeatherUnitManager
 
 class WeatherGraphInitializationManagerImpl(
     private val cityManager: CityManager,
-    private val weatherManager: WeatherManager
+    private val weatherManager: WeatherManager,
+    private val weatherUnitManager: WeatherUnitManager
 ) : WeatherGraphInitializationManager {
 
     override fun initialize() {
         cityManager.addListener(createCityListener())
+        weatherUnitManager.addListener(createWeatherUnitListener())
     }
 
     private fun createCityListener() = object : CityManager.Listener {
+        override fun onChanged() {
+            weatherManager.clearCache()
+            weatherManager.load()
+        }
+    }
+
+    private fun createWeatherUnitListener() = object : WeatherUnitManager.Listener {
         override fun onChanged() {
             weatherManager.clearCache()
             weatherManager.load()

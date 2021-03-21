@@ -93,5 +93,12 @@ data class Weather(
                 timestampSecond = 1616321094 + TimeUnit.DAYS.toMillis(3)
             )
         )
+
+        fun List<Weather>.getOrNull(index: Int): Weather? {
+            if (index >= size) {
+                return null
+            }
+            return get(index)
+        }
     }
 }

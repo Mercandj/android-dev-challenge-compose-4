@@ -18,18 +18,23 @@ package com.example.androiddevchallenge.main_view_top_bar_view
 import androidx.lifecycle.MutableLiveData
 import com.example.androiddevchallenge.city.CityManager
 import com.example.androiddevchallenge.date.DateManager
+import com.example.androiddevchallenge.weather.Weather
 import com.example.androiddevchallenge.weather.WeatherManager
+import com.example.androiddevchallenge.weather_unit.WeatherUnit
+import com.example.androiddevchallenge.weather_unit.WeatherUnitManager
 
 class MainViewTopBarViewPresenter(
     private val screen: MainViewTopBarViewContract.Screen,
     private val cityManager: CityManager,
     private val dateManager: DateManager,
-    private val weatherManager: WeatherManager
+    private val weatherManager: WeatherManager,
+    private val weatherUnitManager: WeatherUnitManager
 ) : MainViewTopBarViewContract.UserAction {
 
     private var city = MutableLiveData(createCity())
     private var date = MutableLiveData(createDate())
     private var temperature = MutableLiveData(createTemperature())
+    private var weatherType = MutableLiveData(Weather.Type.SNOW)
 
     init {
         // Require remove call?
@@ -49,10 +54,22 @@ class MainViewTopBarViewPresenter(
         return temperature
     }
 
+    override fun getWeatherType(): MutableLiveData<Weather.Type> {
+        return weatherType
+    }
+
     override fun onTemperatureClick() {
     }
 
     override fun onCityClicked() {
+    }
+
+    override fun onTemperatureUnitClicked(weatherUnit: WeatherUnit) {
+        weatherUnitManager.setWeatherUnit(weatherUnit)
+    }
+
+    override fun onTemperatureUnitDisplay(metric: WeatherUnit): Boolean {
+        return weatherUnitManager.getWeatherUnit() == metric
     }
 
     private fun updateCity() {
@@ -65,6 +82,10 @@ class MainViewTopBarViewPresenter(
 
     private fun updateTemperature() {
         temperature.value = createTemperature()
+    }
+
+    private fun updateWeatherType() {
+        weatherType.value = createWeatherType()
     }
 
     private fun createCity(): String {
@@ -82,6 +103,11 @@ class MainViewTopBarViewPresenter(
         return "$temperature°"
     }
 
+    private fun createWeatherType(): Weather.Type {
+        val weather = weatherManager.getWeathers().firstOrNull() ?: return Weather.Type.SNOW
+        return weather.type
+    }
+
     private fun createCityListener() = object : CityManager.Listener {
         override fun onChanged() {
             updateCity()
@@ -92,6 +118,7 @@ class MainViewTopBarViewPresenter(
         override fun onChanged() {
             updateDate()
             updateTemperature()
+            updateWeatherType()
         }
     }
 }

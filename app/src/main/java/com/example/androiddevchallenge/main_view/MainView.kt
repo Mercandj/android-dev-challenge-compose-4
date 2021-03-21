@@ -74,7 +74,8 @@ fun MainView(
             ) {
                 Spacer(modifier = Modifier.height(30.dp))
                 MainWeatherAnimatedView(
-                    preview = preview
+                    preview = preview,
+                    weather = weathersState.value?.getOrNull(0)
                 )
             }
             Column(
@@ -87,20 +88,24 @@ fun MainView(
                 val weathers = weathersState.value!!
                 Row {
                     ForecastCellView(
-                        weathers.getOrNull(0),
-                        Modifier.weight(1f)
+                        weather = weathers.getOrNull(0),
+                        modifier = Modifier.weight(1f),
+                        preview = preview
                     )
                     ForecastCellView(
-                        weathers.getOrNull(1),
-                        Modifier.weight(1f)
+                        weather = weathers.getOrNull(1),
+                        modifier = Modifier.weight(1f),
+                        preview = preview
                     )
                     ForecastCellView(
-                        weathers.getOrNull(2),
-                        Modifier.weight(1f)
+                        weather = weathers.getOrNull(2),
+                        modifier = Modifier.weight(1f),
+                        preview = preview
                     )
                     ForecastCellView(
-                        weathers.getOrNull(3),
-                        Modifier.weight(1f)
+                        weather = weathers.getOrNull(3),
+                        modifier = Modifier.weight(1f),
+                        preview = preview
                     )
                 }
             }
@@ -122,13 +127,6 @@ fun MainViewDarkPreview() {
     MainTheme(darkTheme = true) {
         MainView(preview = true)
     }
-}
-
-private fun List<Weather>.getOrNull(index: Int): Weather? {
-    if (index >= size) {
-        return null
-    }
-    return get(index)
 }
 
 private class Mvp(

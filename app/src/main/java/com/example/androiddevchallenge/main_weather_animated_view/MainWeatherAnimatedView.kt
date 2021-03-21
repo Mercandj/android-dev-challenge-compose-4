@@ -15,6 +15,7 @@
  */
 package com.example.androiddevchallenge.main_weather_animated_view
 
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -50,6 +51,7 @@ import com.example.androiddevchallenge.weather_icon_view.WeatherIconView
 @Composable
 fun MainWeatherAnimatedView(
     modifier: Modifier = Modifier,
+    weather: Weather?,
     preview: Boolean = false
 ) {
     Box(
@@ -57,8 +59,6 @@ fun MainWeatherAnimatedView(
             .width(280.dp)
             .height(280.dp)
     ) {
-
-        // https://medium.com/nerd-for-tech/jetpack-compose-pulsating-effect-4b9f2928d31a
         val circleScale by rememberInfiniteTransition().animateFloat(
             initialValue = 2.3f,
             targetValue = 2.4f,
@@ -70,7 +70,7 @@ fun MainWeatherAnimatedView(
         Image(
             painter = painterResource(R.drawable.main_weather_animated_view_circle_with_shadow),
             contentDescription = "Weather",
-            colorFilter = ColorFilter.tint(Color(0xFFFFEB3B)),
+            colorFilter = ColorFilter.tint(getCircleColor(weather)),
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
@@ -84,7 +84,6 @@ fun MainWeatherAnimatedView(
                 )
                 .align(Alignment.Center)
         )
-        // https://medium.com/nerd-for-tech/jetpack-compose-pulsating-effect-4b9f2928d31a
         val circleGradientScale by rememberInfiniteTransition().animateFloat(
             initialValue = 0.8f,
             targetValue = 0.85f,
@@ -96,6 +95,7 @@ fun MainWeatherAnimatedView(
         Image(
             painter = painterResource(R.drawable.main_weather_animated_view_circle_gradient_yellow),
             contentDescription = "Weather",
+            colorFilter = ColorFilter.tint(getCircleColor(weather)),
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
@@ -103,7 +103,6 @@ fun MainWeatherAnimatedView(
                 .zIndex(1f)
                 .align(Alignment.Center)
         )
-        // https://medium.com/nerd-for-tech/jetpack-compose-pulsating-effect-4b9f2928d31a
         val figureScale by rememberInfiniteTransition().animateFloat(
             initialValue = 1.0f,
             targetValue = 1.12f,
@@ -113,7 +112,7 @@ fun MainWeatherAnimatedView(
             )
         )
         Image(
-            painter = painterResource(R.drawable.main_weather_animated_view_figure_1),
+            painter = painterResource(getFigureDrawableRes(weather = weather)),
             contentDescription = "Weather figure",
             modifier = Modifier
                 .fillMaxWidth()
@@ -122,25 +121,104 @@ fun MainWeatherAnimatedView(
                 .zIndex(2f)
                 .align(Alignment.Center)
         )
-        Box(
-            modifier = Modifier.zIndex(3f)
-                .align(Alignment.TopStart)
-                .offset(x = (-50).dp, y = (-50).dp)
-        ) {
-            WeatherIconView(
-                modifier = Modifier.width(180.dp).height(180.dp),
-                Weather.Type.RAIN
-            )
+        if (weather != null) {
+            Box(
+                modifier = Modifier
+                    .zIndex(3f)
+                    .align(Alignment.TopStart)
+                    .offset(x = (-50).dp, y = (-50).dp)
+            ) {
+                WeatherIconView(
+                    modifier = Modifier
+                        .width(180.dp)
+                        .height(180.dp),
+                    weatherType = weather.type
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .zIndex(3f)
+                    .align(Alignment.BottomEnd)
+                    .offset(x = 50.dp, y = 50.dp)
+            ) {
+                WeatherIconView(
+                    modifier = Modifier
+                        .width(180.dp)
+                        .height(180.dp),
+                    weatherType = weather.type
+                )
+            }
         }
-        Box(
-            modifier = Modifier.zIndex(3f)
-                .align(Alignment.BottomEnd)
-                .offset(x = 50.dp, y = 50.dp)
-        ) {
-            WeatherIconView(
-                modifier = Modifier.width(180.dp).height(180.dp),
-                Weather.Type.SNOW
-            )
+    }
+}
+
+@DrawableRes
+private fun getFigureDrawableRes(weather: Weather?): Int {
+    if (weather == null) {
+        return R.drawable.main_weather_animated_view_figure_1
+    }
+    return when (weather.type) {
+        Weather.Type.CLEAR -> R.drawable.main_weather_animated_view_figure_1
+        Weather.Type.THUNDERSTORM -> R.drawable.main_weather_animated_view_figure_1
+        Weather.Type.DRIZZLE -> R.drawable.main_weather_animated_view_figure_1
+        Weather.Type.CLOUDS -> R.drawable.main_weather_animated_view_figure_2
+        Weather.Type.CLOUDS_SCATTERED_CLOUDS -> R.drawable.main_weather_animated_view_figure_3
+        Weather.Type.CLOUDS_BROKEN_CLOUDS -> R.drawable.main_weather_animated_view_figure_4
+        Weather.Type.CLOUDS_FEW_CLOUDS -> R.drawable.main_weather_animated_view_figure_5
+        Weather.Type.RAIN -> R.drawable.main_weather_animated_view_figure_6
+        Weather.Type.RAIN_FREEZING_RAIN -> R.drawable.main_weather_animated_view_figure_7
+        Weather.Type.RAIN_VERY_HEAVY_RAIN -> R.drawable.main_weather_animated_view_figure_1
+        Weather.Type.RAIN_HEAVY_INTENSITY -> R.drawable.main_weather_animated_view_figure_2
+        Weather.Type.RAIN_MODERATE_RAIN -> R.drawable.main_weather_animated_view_figure_3
+        Weather.Type.RAIN_LIGHT_RAIN -> R.drawable.main_weather_animated_view_figure_4
+        Weather.Type.SNOW -> R.drawable.main_weather_animated_view_figure_5
+        Weather.Type.SNOW_LIGHT_SNOW -> R.drawable.main_weather_animated_view_figure_6
+        Weather.Type.MIST -> R.drawable.main_weather_animated_view_figure_1
+    }
+}
+
+@Composable
+private fun getCircleColor(weather: Weather?): Color {
+    if (weather == null) {
+        return Color(0xFFFFEB3B)
+    }
+    return if (MaterialTheme.colors.isLight) {
+        when (weather.type) {
+            Weather.Type.CLEAR -> Color(0xFFDDC600)
+            Weather.Type.THUNDERSTORM -> Color(0xFFDDC600)
+            Weather.Type.DRIZZLE -> Color(0xFFDDC600)
+            Weather.Type.CLOUDS -> Color(0xFF838383)
+            Weather.Type.CLOUDS_SCATTERED_CLOUDS -> Color(0xFF838383)
+            Weather.Type.CLOUDS_BROKEN_CLOUDS -> Color(0xFF838383)
+            Weather.Type.CLOUDS_FEW_CLOUDS -> Color(0xFFDDC600)
+            Weather.Type.RAIN -> Color(0xFF30B0D3)
+            Weather.Type.RAIN_FREEZING_RAIN -> Color(0xFF30B0D3)
+            Weather.Type.RAIN_VERY_HEAVY_RAIN -> Color(0xFF30B0D3)
+            Weather.Type.RAIN_HEAVY_INTENSITY -> Color(0xFF30B0D3)
+            Weather.Type.RAIN_MODERATE_RAIN -> Color(0xFF30B0D3)
+            Weather.Type.RAIN_LIGHT_RAIN -> Color(0xFF30B0D3)
+            Weather.Type.SNOW -> Color(0xFFC2C2C2)
+            Weather.Type.SNOW_LIGHT_SNOW -> Color(0xFFC2C2C2)
+            Weather.Type.MIST -> Color(0xFFC2C2C2)
+        }
+    } else {
+        when (weather.type) {
+            Weather.Type.CLEAR -> Color(0xFFFFEB3B)
+            Weather.Type.THUNDERSTORM -> Color(0xFFFFEB3B)
+            Weather.Type.DRIZZLE -> Color(0xFFFFEB3B)
+            Weather.Type.CLOUDS -> Color(0xFF838383)
+            Weather.Type.CLOUDS_SCATTERED_CLOUDS -> Color(0xFF838383)
+            Weather.Type.CLOUDS_BROKEN_CLOUDS -> Color(0xFFFFEB3B)
+            Weather.Type.CLOUDS_FEW_CLOUDS -> Color(0xFFFFEB3B)
+            Weather.Type.RAIN -> Color(0xFF30B0D3)
+            Weather.Type.RAIN_FREEZING_RAIN -> Color(0xFF30B0D3)
+            Weather.Type.RAIN_VERY_HEAVY_RAIN -> Color(0xFF30B0D3)
+            Weather.Type.RAIN_HEAVY_INTENSITY -> Color(0xFF30B0D3)
+            Weather.Type.RAIN_MODERATE_RAIN -> Color(0xFF30B0D3)
+            Weather.Type.RAIN_LIGHT_RAIN -> Color(0xFF30B0D3)
+            Weather.Type.SNOW -> Color(0xFFC2C2C2)
+            Weather.Type.SNOW_LIGHT_SNOW -> Color(0xFFC2C2C2)
+            Weather.Type.MIST -> Color(0xFFC2C2C2)
         }
     }
 }
@@ -153,7 +231,8 @@ fun MainWeatherAnimatedViewLightPreview() {
             MainViewBackgroundView {
                 MainWeatherAnimatedView(
                     preview = true,
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier.align(Alignment.Center),
+                    weather = Weather.fakeWeathers[0]
                 )
             }
         }
@@ -168,7 +247,8 @@ fun MainWeatherAnimatedViewDarkPreview() {
             MainViewBackgroundView {
                 MainWeatherAnimatedView(
                     preview = true,
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier.align(Alignment.Center),
+                    weather = Weather.fakeWeathers[0]
                 )
             }
         }

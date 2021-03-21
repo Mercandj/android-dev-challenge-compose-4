@@ -20,6 +20,8 @@ interface CityEditViewContract {
     interface UserAction {
 
         fun onCityValidated(text: String)
+
+        fun onInfoClicked()
     }
 
     interface Screen

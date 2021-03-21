@@ -42,6 +42,7 @@ import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.graph.WeatherGraph
 import com.example.androiddevchallenge.main_view.MainViewBackgroundView
 import com.example.androiddevchallenge.theme.MainTheme
+import com.example.androiddevchallenge.theme.getForecastViewCardColor
 import com.example.androiddevchallenge.theme.getTextPrimaryColor
 import com.example.androiddevchallenge.weather.Weather
 import com.example.androiddevchallenge.weather_icon_view.WeatherIconView
@@ -51,8 +52,10 @@ import soup.neumorphism.ShapeType
 @Composable
 fun ForecastCellView(
     weather: Weather?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    preview: Boolean = false
 ) {
+    val userAction = Mvp(preview = preview, weather = weather).createUserAction()
     Column(
         modifier = modifier
             .height(150.dp)
@@ -64,6 +67,7 @@ fun ForecastCellView(
             val light = MaterialTheme.colors.isLight
             val topStartShadowColor = if (light) "#C6CEDA" else "#101010"
             val bottomEndShadowColor = if (light) "#FEFEFF" else "#262C37"
+            val forecastViewCardColor = MaterialTheme.colors.getForecastViewCardColor()
             AndroidView(
                 modifier = modifier
                     .fillMaxWidth()
@@ -73,10 +77,20 @@ fun ForecastCellView(
                         setShadowColorLight(Color.parseColor(bottomEndShadowColor))
                         setShadowColorDark(Color.parseColor(topStartShadowColor))
                         setShapeType(ShapeType.DEFAULT)
-                        stateListAnimator = loadStateListAnimator(
-                            context,
-                            R.animator.button_state_list_anim_neumorph
+                        setBackgroundColor(
+                            argb(
+                                forecastViewCardColor.alpha,
+                                forecastViewCardColor.red,
+                                forecastViewCardColor.green,
+                                forecastViewCardColor.blue
+                            )
                         )
+                        if (!preview) {
+                            stateListAnimator = loadStateListAnimator(
+                                context,
+                                R.animator.button_state_list_anim_neumorph
+                            )
+                        }
                         setOnClickListener {
                         }
                     }
@@ -133,8 +147,7 @@ fun ForecastCellView(
             if (weather != null) {
                 // To put in presenter the text creation
                 Text(
-                    text = WeatherGraph.getDateManager()
-                        .convertTimestampToSpecificFormat1(weather.timestampSecond),
+                    text = userAction.onDisplayTextTemperature(),
                     fontSize = 12.sp,
                     fontWeight = FontWeight(900),
                     modifier = Modifier
@@ -155,7 +168,8 @@ fun ForecastCellViewLightPreview() {
             MainViewBackgroundView {
                 ForecastCellView(
                     modifier = Modifier.align(Alignment.BottomStart),
-                    weather = Weather.fakeWeathers[0]
+                    weather = Weather.fakeWeathers[0],
+                    preview = true
                 )
             }
         }
@@ -170,9 +184,39 @@ fun ForecastCellViewDarkPreview() {
             MainViewBackgroundView {
                 ForecastCellView(
                     modifier = Modifier.align(Alignment.BottomStart),
-                    weather = Weather.fakeWeathers[0]
+                    weather = Weather.fakeWeathers[0],
+                    preview = true
                 )
             }
         }
+    }
+}
+
+private fun argb(alpha: Float, red: Float, green: Float, blue: Float): Int {
+    return (alpha * 255.0f + 0.5f).toInt() shl 24 or
+        ((red * 255.0f + 0.5f).toInt() shl 16) or
+        ((green * 255.0f + 0.5f).toInt() shl 8) or
+        (blue * 255.0f + 0.5f).toInt()
+}
+
+private class Mvp(
+    private val preview: Boolean,
+    private val weather: Weather?
+) {
+
+    private fun createScreen() = object : ForecastCellViewContract.Screen {
+    }
+
+    fun createUserAction(): ForecastCellViewContract.UserAction {
+        if (preview) {
+            return object : ForecastCellViewContract.UserAction {
+                override fun onDisplayTextTemperature(): String = "28°"
+            }
+        }
+        return ForecastCellViewPresenter(
+            createScreen(),
+            weather,
+            WeatherGraph.getDateManager()
+        )
     }
 }

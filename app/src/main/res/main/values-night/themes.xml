@@ -11,14 +11,14 @@
       -->
     <!-- Base application theme. -->
     <style name="Theme.AndroidDevChallenge" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimary">#FDE807</item>
         <item name="colorPrimaryVariant">#0B222F</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <item name="colorShadowLight">@color/black</item>
-        <item name="colorShadowDark">@color/black</item>
+        <item name="colorOnPrimary">#000000</item>
+        <item name="colorSecondary">#0B222F</item>
+        <item name="colorSecondaryVariant">#0B222F</item>
+        <item name="colorOnSecondary">#000000</item>
+        <item name="colorShadowLight">#000000</item>
+        <item name="colorShadowDark">#000000</item>
         <item name="android:statusBarColor" tools:targetApi="l">#FF394253</item>
     </style>
 </resources>

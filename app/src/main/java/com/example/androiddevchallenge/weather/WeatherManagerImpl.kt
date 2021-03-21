@@ -15,7 +15,6 @@
  */
 package com.example.androiddevchallenge.weather
 
-import android.util.Log
 import com.example.androiddevchallenge.city.CityManager
 import com.example.androiddevchallenge.date.DateManager
 import com.example.androiddevchallenge.weather_api.WeatherApiException
@@ -44,7 +43,6 @@ class WeatherManagerImpl(
                     weatherUnit = weatherUnit
                 )
             } catch (e: WeatherApiException) {
-                Log.e("jm/debug", "load: getWeather: ", e)
                 null
             }
             val weatherForecastDaily = try {
@@ -54,7 +52,6 @@ class WeatherManagerImpl(
                     numberOfDays = 7
                 )
             } catch (e: WeatherApiException) {
-                Log.e("jm/debug", "load getWeatherForecastDaily: ", e)
                 emptyList()
             }
             addOn.postMainThread {

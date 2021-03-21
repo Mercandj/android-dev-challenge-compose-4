@@ -74,6 +74,7 @@ android {
                     'src/main/res/main_weather_animated_view',
                     'src/main/res/main_weather_animated_view_figure',
                     'src/main/res/theme',
+                    'src/main/res/weather_icon_2_view',
                     'src/main/res/weather_icon_view'
             ]
         }

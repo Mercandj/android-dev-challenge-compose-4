@@ -59,16 +59,15 @@ private fun Weather.Type.toImageContentDescription(): String {
     }
 }
 
-// TODO - To rework
 private fun Weather.Type.toDrawableRes(): Int {
     return when (this) {
         Weather.Type.CLEAR -> R.drawable.weather_sun
         Weather.Type.THUNDERSTORM -> R.drawable.weather_storm
-        Weather.Type.DRIZZLE -> R.drawable.weather_cloud_storm
-        Weather.Type.CLOUDS -> R.drawable.weather_cloud_storm
-        Weather.Type.CLOUDS_SCATTERED_CLOUDS -> R.drawable.weather_cloud_storm
-        Weather.Type.CLOUDS_BROKEN_CLOUDS -> R.drawable.weather_cloud_storm
-        Weather.Type.CLOUDS_FEW_CLOUDS -> R.drawable.weather_cloud_storm
+        Weather.Type.DRIZZLE -> R.drawable.weather_2_freezing_drizzle
+        Weather.Type.CLOUDS -> R.drawable.weather_2_cloudy
+        Weather.Type.CLOUDS_SCATTERED_CLOUDS -> R.drawable.weather_2_partly_cloudy_day
+        Weather.Type.CLOUDS_BROKEN_CLOUDS -> R.drawable.weather_2_partly_cloudy_day
+        Weather.Type.CLOUDS_FEW_CLOUDS -> R.drawable.weather_2_partly_cloudy_day
         Weather.Type.RAIN -> R.drawable.weather_rain
         Weather.Type.RAIN_FREEZING_RAIN -> R.drawable.weather_sun_cloud_angled_rain
         Weather.Type.RAIN_VERY_HEAVY_RAIN -> R.drawable.weather_sun_cloud_angled_rain
@@ -77,6 +76,6 @@ private fun Weather.Type.toDrawableRes(): Int {
         Weather.Type.RAIN_LIGHT_RAIN -> R.drawable.weather_rain
         Weather.Type.SNOW -> R.drawable.weather_mid_snow_fast_winds
         Weather.Type.SNOW_LIGHT_SNOW -> R.drawable.weather_snow
-        Weather.Type.MIST -> R.drawable.weather_tornado
+        Weather.Type.MIST -> R.drawable.weather_2_mist
     }
 }

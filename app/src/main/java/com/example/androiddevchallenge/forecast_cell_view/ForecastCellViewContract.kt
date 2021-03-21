@@ -13,11 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.theme
+package com.example.androiddevchallenge.forecast_cell_view
 
-import androidx.compose.ui.graphics.Color
+class ForecastCellViewContract {
 
-val purple200 = Color(0xFFBB86FC)
-val purple500 = Color(0xFF6200EE)
-val purple700 = Color(0xFF3700B3)
-val teal200 = Color(0xFF03DAC5)
+    interface UserAction {
+
+        fun onDisplayTextTemperature(): String
+    }
+
+    interface Screen
+}
