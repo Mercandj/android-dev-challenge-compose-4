@@ -131,6 +131,7 @@ class WeatherRepositoryImpl(
                 "rain_light_rain" -> Weather.Type.RAIN_LIGHT_RAIN
                 "snow" -> Weather.Type.SNOW
                 "snow_light_snow" -> Weather.Type.SNOW_LIGHT_SNOW
+                "mist" -> Weather.Type.MIST
                 else -> throw IllegalStateException("Unknown type: $this")
             },
             temperature = getDouble("temperature").toFloat(),
@@ -185,6 +186,7 @@ class WeatherRepositoryImpl(
                 Weather.Type.RAIN_LIGHT_RAIN -> "rain_light_rain"
                 Weather.Type.SNOW -> "snow"
                 Weather.Type.SNOW_LIGHT_SNOW -> "snow_light_snow"
+                Weather.Type.MIST -> "mist"
             }
         )
         jsonObject.put("temperature", temperature)

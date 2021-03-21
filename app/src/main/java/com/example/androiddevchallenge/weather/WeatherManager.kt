@@ -18,4 +18,18 @@ package com.example.androiddevchallenge.weather
 interface WeatherManager {
 
     fun load()
+
+    /**
+     * 0 is today, 1 is tomorrow...
+     */
+    fun getWeathers(): List<Weather>
+
+    fun addListener(listener: Listener)
+
+    fun removeListener(listener: Listener)
+
+    interface Listener {
+
+        fun onChanged()
+    }
 }

@@ -44,7 +44,8 @@ data class Weather(
         RAIN_MODERATE_RAIN,
         RAIN_LIGHT_RAIN,
         SNOW,
-        SNOW_LIGHT_SNOW
+        SNOW_LIGHT_SNOW,
+        MIST
     }
 
     companion object {

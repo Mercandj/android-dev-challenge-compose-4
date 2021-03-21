@@ -55,6 +55,7 @@ private fun Weather.Type.toImageContentDescription(): String {
         Weather.Type.RAIN_LIGHT_RAIN -> "light rain"
         Weather.Type.SNOW -> "snow"
         Weather.Type.SNOW_LIGHT_SNOW -> "light snow"
+        Weather.Type.MIST -> "mist"
     }
 }
 
@@ -76,5 +77,6 @@ private fun Weather.Type.toDrawableRes(): Int {
         Weather.Type.RAIN_LIGHT_RAIN -> R.drawable.weather_rain
         Weather.Type.SNOW -> R.drawable.weather_mid_snow_fast_winds
         Weather.Type.SNOW_LIGHT_SNOW -> R.drawable.weather_snow
+        Weather.Type.MIST -> R.drawable.weather_tornado
     }
 }

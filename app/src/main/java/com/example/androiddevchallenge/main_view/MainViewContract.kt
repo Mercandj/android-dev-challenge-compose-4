@@ -13,23 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.main_activity
+package com.example.androiddevchallenge.main_view
 
-import androidx.annotation.ColorRes
+import androidx.lifecycle.MutableLiveData
+import com.example.androiddevchallenge.weather.Weather
 
-interface MainActivityContract {
+interface MainViewContract {
 
     interface UserAction {
 
-        fun onCreate(savedInstanceStateNull: Boolean)
-
-        fun onResume()
+        fun getWeathers(): MutableLiveData<List<Weather>>
     }
 
-    interface Screen {
-
-        fun setStatusBarTheme(@ColorRes colorRes: Int, themeDark: Boolean)
-
-        fun setNavigationBarTheme(@ColorRes colorRes: Int, themeDark: Boolean)
-    }
+    interface Screen
 }

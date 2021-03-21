@@ -21,7 +21,7 @@ import com.example.androiddevchallenge.city.CityModule
 import com.example.androiddevchallenge.network.NetworkModule
 import com.example.androiddevchallenge.theme.ThemeModule
 import com.example.androiddevchallenge.weather.WeatherModule
-import com.example.androiddevchallenge.weather_repository.WeatherRepositoryModule
+import com.example.androiddevchallenge.weather_unit.WeatherUnitModule
 
 class WeatherGraph private constructor(
     private val context: Context
@@ -31,7 +31,7 @@ class WeatherGraph private constructor(
     private val networkManager by lazy { NetworkModule().createNetworkManager() }
     private val themeManager by lazy { ThemeModule().createThemeManager() }
     private val weatherManager by lazy { WeatherModule().createWeatherManager() }
-    private val weatherRepository by lazy { WeatherRepositoryModule().createWeatherRepository() }
+    private val weatherUnitManager by lazy { WeatherUnitModule().createWeatherUnitManager() }
 
     companion object {
 
@@ -50,6 +50,6 @@ class WeatherGraph private constructor(
         fun getNetworkManager() = graph!!.networkManager
         fun getThemeManager() = graph!!.themeManager
         fun getWeatherManager() = graph!!.weatherManager
-        fun getWeatherRepository() = graph!!.weatherRepository
+        fun getWeatherUnitManager() = graph!!.weatherUnitManager
     }
 }

@@ -15,13 +15,17 @@
  */
 package com.example.androiddevchallenge.forecast_cell_view
 
+import android.animation.AnimatorInflater.loadStateListAnimator
 import android.graphics.Color
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -33,8 +37,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.compose.ui.zIndex
+import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.main_view.MainViewBackgroundView
 import com.example.androiddevchallenge.theme.MainTheme
+import com.example.androiddevchallenge.theme.getTextPrimaryColor
 import com.example.androiddevchallenge.weather.Weather
 import com.example.androiddevchallenge.weather_icon_view.WeatherIconView
 import soup.neumorphism.NeumorphImageButton
@@ -42,43 +49,86 @@ import soup.neumorphism.ShapeType
 
 @Composable
 fun ForecastCellView(
-    weather: Weather,
-    modifier: Modifier = Modifier,
-    preview: Boolean = false
+    weather: Weather?,
+    modifier: Modifier = Modifier
 ) {
-    val height = 130.dp
-    Box(
+    Column(
         modifier = modifier
+            .height(150.dp)
     ) {
-        val light = MaterialTheme.colors.isLight
-        val topStartShadowColor = if (light) "#C6CEDA" else "#101010"
-        val bottomEndShadowColor = if (light) "#FEFEFF" else "#262C37"
-        AndroidView(
+        Box(
             modifier = modifier
-                .fillMaxWidth()
-                .height(height),
-            factory = { context ->
-                NeumorphImageButton(context).apply {
-                    setShadowColorLight(Color.parseColor(bottomEndShadowColor))
-                    setShadowColorDark(Color.parseColor(topStartShadowColor))
-                    setShapeType(ShapeType.DEFAULT)
+                .height(130.dp)
+        ) {
+            val light = MaterialTheme.colors.isLight
+            val topStartShadowColor = if (light) "#C6CEDA" else "#101010"
+            val bottomEndShadowColor = if (light) "#FEFEFF" else "#262C37"
+            AndroidView(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                factory = { context ->
+                    NeumorphImageButton(context).apply {
+                        setShadowColorLight(Color.parseColor(bottomEndShadowColor))
+                        setShadowColorDark(Color.parseColor(topStartShadowColor))
+                        setShapeType(ShapeType.DEFAULT)
+                        stateListAnimator = loadStateListAnimator(
+                            context,
+                            R.animator.button_state_list_anim_neumorph
+                        )
+                        setOnClickListener {
+                        }
+                    }
+                }
+            )
+            Column(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .padding(14.dp)
+            ) {
+                if (weather == null) {
+                    Box(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .width(24.dp)
+                                .height(24.dp)
+                                .align(Alignment.Center)
+                                .zIndex(2f),
+                            color = MaterialTheme.colors.getTextPrimaryColor()
+                        )
+                    }
+                } else {
+                    WeatherIconView(
+                        weatherType = weather.type,
+                        modifier = Modifier.weight(2.2f)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth()
+                    ) {
+                        Text(
+                            text = "${weather.temperature.toInt()}°",
+                            fontSize = 19.sp,
+                            fontWeight = FontWeight(900),
+                            modifier = Modifier
+                                .wrapContentWidth()
+                                .padding(bottom = 4.dp)
+                                .align(Alignment.Center)
+                        )
+                    }
                 }
             }
-        )
-        Column(
-            modifier = modifier
+        }
+        Box(
+            modifier = Modifier
                 .fillMaxWidth()
-                .height(height)
-                .padding(14.dp)
         ) {
-            WeatherIconView(
-                weatherType = weather.type,
-                modifier = Modifier.weight(2.2f)
-            )
-            Box(modifier = Modifier.weight(1f).fillMaxWidth()) {
+            if (weather != null) {
                 Text(
                     text = "Mon " + (18 + weather.offsetDayFromToday),
-                    fontSize = 13.sp,
+                    fontSize = 12.sp,
                     fontWeight = FontWeight(900),
                     modifier = Modifier
                         .wrapContentWidth()
@@ -97,7 +147,6 @@ fun ForecastCellViewLightPreview() {
         Surface {
             MainViewBackgroundView {
                 ForecastCellView(
-                    preview = true,
                     modifier = Modifier.align(Alignment.BottomStart),
                     weather = Weather.fakeWeathers[0]
                 )
@@ -113,7 +162,6 @@ fun ForecastCellViewDarkPreview() {
         Surface {
             MainViewBackgroundView {
                 ForecastCellView(
-                    preview = true,
                     modifier = Modifier.align(Alignment.BottomStart),
                     weather = Weather.fakeWeathers[0]
                 )

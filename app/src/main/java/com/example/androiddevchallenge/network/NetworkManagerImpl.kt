@@ -35,9 +35,9 @@ class NetworkManagerImpl : NetworkManager {
         return try {
             okHttpResponse = okHttpClient.value.newCall(okHttpRequestBuilder.build()).execute()
             body = okHttpResponse.body()
-            body.toString()
+            body?.string()
         } catch (e: IOException) {
-            null
+            throw IllegalStateException(e)
         } finally {
             closeSilently(body, okHttpResponse)
         }

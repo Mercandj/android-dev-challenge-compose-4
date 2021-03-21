@@ -17,12 +17,12 @@ package com.example.androiddevchallenge.main_view_top_bar_view
 
 import androidx.lifecycle.MutableLiveData
 import com.example.androiddevchallenge.city.CityManager
-import com.example.androiddevchallenge.weather_repository.WeatherRepository
+import com.example.androiddevchallenge.weather.WeatherManager
 
 class MainViewTopBarViewPresenter(
     private val screen: MainViewTopBarViewContract.Screen,
     private val cityManager: CityManager,
-    private val weatherRepository: WeatherRepository
+    private val weatherManager: WeatherManager
 ) : MainViewTopBarViewContract.UserAction {
 
     private var city = MutableLiveData(createCity())
@@ -30,11 +30,8 @@ class MainViewTopBarViewPresenter(
 
     init {
         // Require remove call?
-        cityManager.addListener(object : CityManager.Listener {
-            override fun onChanged() {
-                city.value = createCity()
-            }
-        })
+        cityManager.addListener(createCityListener())
+        weatherManager.addListener(createWeatherListener())
     }
 
     override fun getCity(): MutableLiveData<String> {
@@ -51,13 +48,33 @@ class MainViewTopBarViewPresenter(
     override fun onCityClicked() {
     }
 
+    private fun updateCity() {
+        city.value = createCity()
+    }
+
+    private fun updateTemperature() {
+        temperature.value = createTemperature()
+    }
+
     private fun createCity(): String {
         return cityManager.getCity()
     }
 
     private fun createTemperature(): String {
-        val weather = weatherRepository.getWeather() ?: return "28°"
+        val weather = weatherManager.getWeathers().firstOrNull() ?: return ""
         val temperature = weather.temperature.toInt()
         return "$temperature°"
+    }
+
+    private fun createCityListener() = object : CityManager.Listener {
+        override fun onChanged() {
+            updateCity()
+        }
+    }
+
+    private fun createWeatherListener() = object : WeatherManager.Listener {
+        override fun onChanged() {
+            updateTemperature()
+        }
     }
 }

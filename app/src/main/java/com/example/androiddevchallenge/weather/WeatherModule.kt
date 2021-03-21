@@ -15,8 +15,12 @@
  */
 package com.example.androiddevchallenge.weather
 
+import android.os.Handler
+import android.os.HandlerThread
+import android.os.Looper
 import com.example.androiddevchallenge.graph.WeatherGraph
 import com.example.androiddevchallenge.weather_api.WeatherApiModule
+import com.example.androiddevchallenge.weather_repository.WeatherRepositoryModule
 
 class WeatherModule {
 
@@ -24,16 +28,30 @@ class WeatherModule {
         return WeatherManagerImpl(
             WeatherApiModule().createWeatherApiManager(),
             WeatherGraph.getCityManager(),
-            WeatherGraph.getWeatherRepository(),
+            WeatherRepositoryModule().createWeatherRepository(),
+            WeatherGraph.getWeatherUnitManager(),
             createWeatherManagerImplAddOn()
         )
     }
 
     private fun createWeatherManagerImplAddOn() = object : WeatherManagerImpl.AddOn {
+
+        private val workerThread by lazy { createWorkerThread() }
+        private val workerThreadHandler by lazy { Handler(workerThread.looper) }
+        private val mainHandler by lazy { Handler(Looper.getMainLooper()) }
+
         override fun postWorkerThread(runnable: Runnable) {
+            workerThreadHandler.post(runnable)
         }
 
         override fun postMainThread(runnable: Runnable) {
+            mainHandler.post(runnable)
+        }
+
+        private fun createWorkerThread(): HandlerThread {
+            val tmp = HandlerThread("weather_load")
+            tmp.start()
+            return tmp
         }
     }
 }

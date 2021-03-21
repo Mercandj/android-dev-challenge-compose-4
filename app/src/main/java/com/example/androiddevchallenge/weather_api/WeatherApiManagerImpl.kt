@@ -26,14 +26,18 @@ class WeatherApiManagerImpl(
 ) : WeatherApiManager {
 
     override fun getWeather(city: String, weatherUnit: WeatherUnit): Weather {
-        val response = networkManager.get(
-            url = createWeatherUrl(city, weatherUnit)
-        )
+        val response = try {
+            networkManager.get(
+                url = createWeatherUrl(city, weatherUnit)
+            )
+        } catch (e: IllegalStateException) {
+            throw WeatherApiException("Fail to http GET", e)
+        }
         val body = response ?: throw WeatherApiException("Empty body. $response")
         val bodyJson = try {
             JSONObject(body)
         } catch (e: JSONException) {
-            throw WeatherApiException("Body not a json. $response", e)
+            throw WeatherApiException("Body not a json. $body", e)
         }
         if (bodyJson.has("cod") &&
             bodyJson.getInt("cod") == 404 &&
@@ -62,14 +66,18 @@ class WeatherApiManagerImpl(
         weatherUnit: WeatherUnit,
         numberOfDays: Int
     ): List<Weather> {
-        val response = networkManager.get(
-            url = getWeatherForecastDailyUrl(city, weatherUnit, numberOfDays)
-        )
+        val response = try {
+            networkManager.get(
+                url = getWeatherForecastDailyUrl(city, weatherUnit, numberOfDays)
+            )
+        } catch (e: IllegalStateException) {
+            throw WeatherApiException("Fail to http GET", e)
+        }
         val body = response ?: throw WeatherApiException("Empty body. $response")
         val bodyJson = try {
             JSONObject(body)
         } catch (e: JSONException) {
-            throw WeatherApiException("Body not a json. $response", e)
+            throw WeatherApiException("Body not a json. $body", e)
         }
         if (bodyJson.has("cod") &&
             bodyJson.getInt("cod") == 404 &&
@@ -133,6 +141,7 @@ class WeatherApiManagerImpl(
                     else -> Weather.Type.SNOW
                 }
             }
+            "Mist" -> Weather.Type.MIST
             else -> throw WeatherApiException("Unknown weather. $main | $description")
         }
     }

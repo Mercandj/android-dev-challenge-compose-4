@@ -13,23 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.main_activity
+package com.example.androiddevchallenge.weather_unit
 
-import androidx.annotation.ColorRes
+class WeatherUnitModule {
 
-interface MainActivityContract {
-
-    interface UserAction {
-
-        fun onCreate(savedInstanceStateNull: Boolean)
-
-        fun onResume()
-    }
-
-    interface Screen {
-
-        fun setStatusBarTheme(@ColorRes colorRes: Int, themeDark: Boolean)
-
-        fun setNavigationBarTheme(@ColorRes colorRes: Int, themeDark: Boolean)
+    fun createWeatherUnitManager(): WeatherUnitManager {
+        return WeatherUnitManagerImpl()
     }
 }

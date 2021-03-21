@@ -24,13 +24,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.lifecycle.MutableLiveData
 import com.example.androiddevchallenge.city_edit_view.CityEditView
 import com.example.androiddevchallenge.forecast_cell_view.ForecastCellView
+import com.example.androiddevchallenge.graph.WeatherGraph
 import com.example.androiddevchallenge.main_view_top_bar_view.MainViewTopBarView
 import com.example.androiddevchallenge.main_weather_animated_view.MainWeatherAnimatedView
 import com.example.androiddevchallenge.theme.MainTheme
@@ -40,6 +43,8 @@ import com.example.androiddevchallenge.weather.Weather
 fun MainView(
     preview: Boolean = false
 ) {
+    val userAction = Mvp(preview).createUserAction()
+    val weathersState = userAction.getWeathers().observeAsState()
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -79,22 +84,22 @@ fun MainView(
                     .align(Alignment.BottomCenter)
                     .zIndex(4f)
             ) {
-                val weathers = Weather.fakeWeathers
+                val weathers = weathersState.value!!
                 Row {
                     ForecastCellView(
-                        weathers[0],
+                        weathers.getOrNull(0),
                         Modifier.weight(1f)
                     )
                     ForecastCellView(
-                        weathers[1],
+                        weathers.getOrNull(1),
                         Modifier.weight(1f)
                     )
                     ForecastCellView(
-                        weathers[2],
+                        weathers.getOrNull(2),
                         Modifier.weight(1f)
                     )
                     ForecastCellView(
-                        weathers[3],
+                        weathers.getOrNull(3),
                         Modifier.weight(1f)
                     )
                 }
@@ -116,5 +121,33 @@ fun MainViewLightPreview() {
 fun MainViewDarkPreview() {
     MainTheme(darkTheme = true) {
         MainView(preview = true)
+    }
+}
+
+private fun List<Weather>.getOrNull(index: Int): Weather? {
+    if (index >= size) {
+        return null
+    }
+    return get(index)
+}
+
+private class Mvp(
+    private val preview: Boolean
+) {
+
+    private fun createScreen() = object : MainViewContract.Screen {
+    }
+
+    fun createUserAction(): MainViewContract.UserAction {
+        if (preview) {
+            return object : MainViewContract.UserAction {
+                private var weathers = MutableLiveData(Weather.fakeWeathers)
+                override fun getWeathers(): MutableLiveData<List<Weather>> = weathers
+            }
+        }
+        return MainViewPresenter(
+            createScreen(),
+            WeatherGraph.getWeatherManager()
+        )
     }
 }

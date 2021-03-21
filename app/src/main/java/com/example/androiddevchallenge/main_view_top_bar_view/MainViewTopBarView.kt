@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -79,7 +80,7 @@ fun MainViewTopBarView(
                     .wrapContentHeight()
             )
             Text(
-                text = "Electric",
+                text = "Mon 18",
                 fontSize = 22.sp,
                 color = Color(0xFFFDE807),
                 fontWeight = FontWeight(900),
@@ -89,16 +90,16 @@ fun MainViewTopBarView(
         }
         NeumorphismCardSquareView(
             modifier = Modifier
-                .height(110.dp)
                 .width(160.dp)
+                .height(110.dp)
                 .padding(start = 24.dp, end = 0.dp)
         ) {
             Box(
                 modifier = Modifier
+                    .width(90.dp)
+                    .height(90.dp)
                     .align(Alignment.Center)
                     .zIndex(2f)
-                    .height(90.dp)
-                    .width(90.dp)
                     .clickable(
                         onClick = {
                             userAction.onTemperatureClick()
@@ -116,6 +117,16 @@ fun MainViewTopBarView(
                     fontWeight = FontWeight(900),
                     color = textColor
                 )
+                if (temperatureState == "") {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .width(24.dp)
+                            .height(24.dp)
+                            .align(Alignment.Center)
+                            .zIndex(2f),
+                        color = textColor
+                    )
+                }
             }
         }
     }
@@ -184,7 +195,7 @@ private class Mvp(
         return MainViewTopBarViewPresenter(
             createScreen(),
             WeatherGraph.getCityManager(),
-            WeatherGraph.getWeatherRepository()
+            WeatherGraph.getWeatherManager()
         )
     }
 }

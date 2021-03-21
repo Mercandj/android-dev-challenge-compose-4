@@ -17,14 +17,21 @@ package com.example.androiddevchallenge.main_activity
 
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.theme.ThemeManager
+import com.example.androiddevchallenge.weather.WeatherManager
 
 class MainActivityPresenter(
     private val screen: MainActivityContract.Screen,
-    private val themeManager: ThemeManager
+    private val themeManager: ThemeManager,
+    private val weatherManager: WeatherManager
 ) : MainActivityContract.UserAction {
 
     override fun onCreate(savedInstanceStateNull: Boolean) {
         updateScreen()
+        weatherManager.load()
+    }
+
+    override fun onResume() {
+        weatherManager.load()
     }
 
     private fun updateScreen() {

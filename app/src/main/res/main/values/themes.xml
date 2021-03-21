@@ -17,6 +17,8 @@
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
+        <item name="colorShadowLight">@color/black</item>
+        <item name="colorShadowDark">@color/black</item>
         <item name="android:statusBarColor" tools:targetApi="l">#FFEEF0F5</item>
     </style>
 

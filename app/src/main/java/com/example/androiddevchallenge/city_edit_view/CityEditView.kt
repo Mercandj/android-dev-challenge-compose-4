@@ -35,12 +35,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.main_view.MainViewBackgroundView
@@ -96,6 +98,11 @@ fun CityEditView(
                         contentDescription = "search"
                     )
                 },
+                textStyle = TextStyle(
+                    color = MaterialTheme.colors.getTextPrimaryColor(),
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight(900)
+                ),
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.None,
                     autoCorrect = false,
@@ -120,6 +127,7 @@ fun CityEditView(
                     text = "City",
                     color = MaterialTheme.colors.getTextHintColor(),
                     fontWeight = FontWeight(900),
+                    fontSize = 14.sp,
                     modifier = Modifier
                         .align(Alignment.CenterStart)
                         .padding(start = 74.dp, end = 74.dp)

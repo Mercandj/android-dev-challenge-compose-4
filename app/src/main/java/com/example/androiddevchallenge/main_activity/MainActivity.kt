@@ -44,6 +44,11 @@ class MainActivity : AppCompatActivity() {
         userAction.onCreate(savedInstanceState == null)
     }
 
+    override fun onResume() {
+        super.onResume()
+        userAction.onResume()
+    }
+
     private fun createScreen() = object : MainActivityContract.Screen {
 
         @Suppress("DEPRECATION")
@@ -98,7 +103,8 @@ class MainActivity : AppCompatActivity() {
     private fun createUserAction(): MainActivityContract.UserAction {
         return MainActivityPresenter(
             createScreen(),
-            WeatherGraph.getThemeManager()
+            WeatherGraph.getThemeManager(),
+            WeatherGraph.getWeatherManager()
         )
     }
 }
