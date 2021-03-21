@@ -1,21 +1,42 @@
-# Template repository
+# Weather
 
-Template repository for the Jetpack Compose [#AndroidDevChallenge](https://developer.android.com/dev-challenge).
+<!--- Replace <OWNER> with your Github Username and <REPOSITORY> with the name of your repository. -->
+<!--- You can find both of these in the url bar when you open your repository in github. -->
+![Workflow result](https://github.com/Mercandj/android-dev-challenge-compose-4/workflows/Check/badge.svg)
 
-## Mercandj's notes
+## :scroll: Description
+<!--- Describe your app in one or two sentences -->
+
+## :bulb: Motivation and Context
+<!--- Optionally point readers to interesting parts of your submission. -->
+<!--- What are you especially proud of? -->
+
+#### What am I proud of?
+- Split UI and logic. Move logic into Presenters / Managers
+- Having built a "useful" app and not only a UI proto
+   - Real data fetch + persistence
+   - Change the City
+   - Change temperature Unit
+- The neumorphism UI
 
 This is the first time I'm trying Jetpack Compose.
 Even if the spirit seems to be reactive paradigm, I will try to use it on a more "classic" way.
 
 **Why?**
-- Because, if one day I'm using this techno in production, I will need this "transition" to not move all my code to "react"
-- Because stay "non reactive" is easier for the reactive-beginner that I am
+- Because, if one day I will use this techno in production, I will need a "transition" phase to not move all my code to the "reactive" way.
+- Because stay "non reactive" is easier for the reactive-beginner that I am. I hope that my project demonstrates that Jatpack Compose work well without intensive use of ViewModel, LiveData...
 - Because stay "non reactive" allow you to produce almost the same code on any platform easily (Unity, iOS, server...)
 
 **My goals will be:**
 - Discover Jetpack Compose
 - Split as much as possible logic from the UI with the good old "MVP"
 - Great UI / Great app quality (app we can publish on Google Play)
+
+## :camera_flash: Screenshots
+<!-- You can add more screenshots here if you like -->
+<img src="/results/screenshot_1.png" width="260">&emsp;<img src="/results/screenshot_2.png" width="260">&emsp;<img src="/results/screenshot_3.png" width="260">
+
+## Side notes
 
 **Requirement if you a coming from "stable Android Studio" on MacOs**
 - Download Java 11 here https://jdk.java.net/archive/
@@ -29,11 +50,13 @@ Even if the spirit seems to be reactive paradigm, I will try to use it on a more
 - https://www.figma.com/file/LfxPlArXOlJ74YNfQwpz8s/SALY---3D-Illustration-Pack-(Community)?node-id=0%3A1
 - https://github.com/fornewid/neumorphism
 
-## Getting started
+## Initial readme info
+
+### Getting started
 Copy this repository by pressing the "Use this template" button in Github.
 Clone your repository and open it in the latest [Android Studio (Canary build)](https://developer.android.com/studio/preview).
 
-## Submission requirements
+### Submission requirements
 - Follow the challenge description on the project website: [developer.android.com/dev-challenge](https://developer.android.com/dev-challenge)
 - All UI should be written using Jetpack Compose
 - The Github Actions workflow should complete successfully
@@ -43,7 +66,7 @@ Clone your repository and open it in the latest [Android Studio (Canary build)](
   video.mp4
 - Replace the contents of [README.md](README.md) with the contents of [README-template.md](README-template.md) and fill out the template.
 
-## Code formatting
+### Code formatting
 The CI uses [Spotless](https://github.com/diffplug/spotless) to check if your code is formatted correctly and contains the right licenses.
 Internally, Spotless uses [ktlint](https://github.com/pinterest/ktlint) to check the formatting of your code.
 To set up ktlint correctly with Android Studio, follow one of the [listed setup options](https://github.com/pinterest/ktlint#-with-intellij-idea).
