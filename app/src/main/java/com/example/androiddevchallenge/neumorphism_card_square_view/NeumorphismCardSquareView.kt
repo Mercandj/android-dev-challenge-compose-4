@@ -31,7 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.androiddevchallenge.R
-import com.example.androiddevchallenge.main_view.MainViewBackgroundView
+import com.example.androiddevchallenge.main_view_background_view.MainViewBackgroundView
 import com.example.androiddevchallenge.theme.MainTheme
 import soup.neumorphism.NeumorphImageButton
 import soup.neumorphism.ShapeType

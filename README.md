@@ -13,7 +13,14 @@ Neumorphism simple weather app that support different temperature units and citi
 <!--- Optionally point readers to interesting parts of your submission. -->
 <!--- What are you especially proud of? -->
 
-#### What am I proud of?
+<img
+    src="app/src/main/res/icon/mipmap-xxxhdpi/ic_launcher.png"
+    align="left"
+    width="190"
+    hspace="10"
+    vspace="10" />
+
+**What am I proud of?**
 - Split UI and logic. Move logic into Presenters / Managers
 - Having built a "useful" app and not only a UI proto
    - Real data fetch + persistence
@@ -27,6 +34,7 @@ Neumorphism simple weather app that support different temperature units and citi
 &emsp;<img width="260" src="/results/vide_as_gif.gif"/>
 &emsp;<img src="/results/screenshot_3.png" width="260">
 &emsp;<img src="/results/screenshot_4.png" width="260">
+&emsp;<img src="/results/screenshot_5.png" width="260">
 
 ## Side notes
 

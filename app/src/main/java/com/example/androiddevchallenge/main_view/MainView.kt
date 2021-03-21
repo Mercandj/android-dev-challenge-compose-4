@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,8 +33,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.MutableLiveData
 import com.example.androiddevchallenge.city_edit_view.CityEditView
+import com.example.androiddevchallenge.error_view.ErrorView
 import com.example.androiddevchallenge.forecast_cell_view.ForecastCellView
 import com.example.androiddevchallenge.graph.WeatherGraph
+import com.example.androiddevchallenge.main_view_background_view.MainViewBackgroundView
 import com.example.androiddevchallenge.main_view_top_bar_view.MainViewTopBarView
 import com.example.androiddevchallenge.main_weather_animated_view.MainWeatherAnimatedView
 import com.example.androiddevchallenge.theme.MainTheme
@@ -45,6 +48,7 @@ fun MainView(
 ) {
     val userAction = Mvp(preview).createUserAction()
     val weathersState = userAction.getWeathers().observeAsState()
+    val errorState by userAction.getError().observeAsState()
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -61,52 +65,57 @@ fun MainView(
                     preview = preview,
                     modifier = Modifier.fillMaxWidth()
                 )
-                Spacer(modifier = Modifier.height(0.dp))
-                MainViewTopBarView(
-                    preview = preview
-                )
+                if (errorState!!) {
+                    ErrorView(preview = preview)
+                } else {
+                    MainViewTopBarView(
+                        preview = preview
+                    )
+                }
             }
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .zIndex(1f)
-            ) {
-                Spacer(modifier = Modifier.height(30.dp))
-                MainWeatherAnimatedView(
-                    preview = preview,
-                    weather = weathersState.value?.getOrNull(0)
-                )
-            }
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .padding(start = 6.dp, end = 6.dp)
-                    .align(Alignment.BottomCenter)
-                    .zIndex(4f)
-            ) {
-                val weathers = weathersState.value!!
-                Row {
-                    ForecastCellView(
-                        weather = weathers.getOrNull(0),
-                        modifier = Modifier.weight(1f),
-                        preview = preview
+            if (!errorState!!) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .zIndex(1f)
+                ) {
+                    Spacer(modifier = Modifier.height(30.dp))
+                    MainWeatherAnimatedView(
+                        preview = preview,
+                        weather = weathersState.value?.getOrNull(0)
                     )
-                    ForecastCellView(
-                        weather = weathers.getOrNull(1),
-                        modifier = Modifier.weight(1f),
-                        preview = preview
-                    )
-                    ForecastCellView(
-                        weather = weathers.getOrNull(2),
-                        modifier = Modifier.weight(1f),
-                        preview = preview
-                    )
-                    ForecastCellView(
-                        weather = weathers.getOrNull(3),
-                        modifier = Modifier.weight(1f),
-                        preview = preview
-                    )
+                }
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .padding(start = 6.dp, end = 6.dp)
+                        .align(Alignment.BottomCenter)
+                        .zIndex(4f)
+                ) {
+                    val weathers = weathersState.value!!
+                    Row {
+                        ForecastCellView(
+                            weather = weathers.getOrNull(0),
+                            modifier = Modifier.weight(1f),
+                            preview = preview
+                        )
+                        ForecastCellView(
+                            weather = weathers.getOrNull(1),
+                            modifier = Modifier.weight(1f),
+                            preview = preview
+                        )
+                        ForecastCellView(
+                            weather = weathers.getOrNull(2),
+                            modifier = Modifier.weight(1f),
+                            preview = preview
+                        )
+                        ForecastCellView(
+                            weather = weathers.getOrNull(3),
+                            modifier = Modifier.weight(1f),
+                            preview = preview
+                        )
+                    }
                 }
             }
         }
@@ -140,7 +149,9 @@ private class Mvp(
         if (preview) {
             return object : MainViewContract.UserAction {
                 private var weathers = MutableLiveData(Weather.fakeWeathers)
+                private var error = MutableLiveData(false)
                 override fun getWeathers(): MutableLiveData<List<Weather>> = weathers
+                override fun getError(): MutableLiveData<Boolean> = error
             }
         }
         return MainViewPresenter(

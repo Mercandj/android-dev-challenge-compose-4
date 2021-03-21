@@ -33,5 +33,7 @@ interface WeatherManager {
     interface Listener {
 
         fun onChanged()
+
+        fun onFailed()
     }
 }

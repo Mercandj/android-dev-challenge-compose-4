@@ -25,6 +25,7 @@ class MainViewPresenter(
 ) : MainViewContract.UserAction {
 
     private var weathers = MutableLiveData(createWeathers())
+    private var error = MutableLiveData(createError())
 
     init {
         // Leak?
@@ -35,17 +36,34 @@ class MainViewPresenter(
         return weathers
     }
 
+    override fun getError(): MutableLiveData<Boolean> {
+        return error
+    }
+
     private fun updateWeathers() {
         weathers.value = createWeathers()
+    }
+
+    private fun updateError(){
+        error.value = createError()
     }
 
     private fun createWeathers(): List<Weather> {
         return weatherManager.getWeathers()
     }
 
+    private fun createError(): Boolean{
+        return weatherManager.getWeathers().size < 4
+    }
+
     private fun createWeatherListener() = object : WeatherManager.Listener {
         override fun onChanged() {
             updateWeathers()
+            updateError()
+        }
+
+        override fun onFailed() {
+            updateError()
         }
     }
 }

@@ -56,7 +56,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.graph.WeatherGraph
-import com.example.androiddevchallenge.main_view.MainViewBackgroundView
+import com.example.androiddevchallenge.main_view_background_view.MainViewBackgroundView
 import com.example.androiddevchallenge.neumorphism_card_square_view.NeumorphismCardSquareView
 import com.example.androiddevchallenge.theme.MainTheme
 import com.example.androiddevchallenge.theme.getMainViewTopViewCardColor

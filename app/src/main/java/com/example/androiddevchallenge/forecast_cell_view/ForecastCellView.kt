@@ -40,7 +40,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.zIndex
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.graph.WeatherGraph
-import com.example.androiddevchallenge.main_view.MainViewBackgroundView
+import com.example.androiddevchallenge.main_view_background_view.MainViewBackgroundView
 import com.example.androiddevchallenge.theme.MainTheme
 import com.example.androiddevchallenge.theme.getForecastViewCardColor
 import com.example.androiddevchallenge.theme.getTextPrimaryColor

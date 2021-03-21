@@ -120,5 +120,8 @@ class MainViewTopBarViewPresenter(
             updateTemperature()
             updateWeatherType()
         }
+
+        override fun onFailed() {
+        }
     }
 }

@@ -23,6 +23,8 @@ interface MainViewContract {
     interface UserAction {
 
         fun getWeathers(): MutableLiveData<List<Weather>>
+
+        fun getError(): MutableLiveData<Boolean>
     }
 
     interface Screen

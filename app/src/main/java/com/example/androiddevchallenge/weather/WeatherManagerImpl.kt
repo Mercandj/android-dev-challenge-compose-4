@@ -55,12 +55,20 @@ class WeatherManagerImpl(
                 emptyList()
             }
             addOn.postMainThread {
-                if (weather != null) {
-                    weatherRepository.setWeather(weather)
+                val succeeded = weather != null && weatherForecastDaily.isNotEmpty()
+                if (!succeeded) {
+                    weatherRepository.setWeather(null)
+                    weatherRepository.setWeatherForecastDaily(emptyList())
+                    for (listener in listeners) {
+                        listener.onChanged()
+                    }
+                    for (listener in listeners) {
+                        listener.onFailed()
+                    }
+                    return@postMainThread
                 }
-                if (weatherForecastDaily.isNotEmpty()) {
-                    weatherRepository.setWeatherForecastDaily(weatherForecastDaily)
-                }
+                weatherRepository.setWeather(weather)
+                weatherRepository.setWeatherForecastDaily(weatherForecastDaily)
                 for (listener in listeners) {
                     listener.onChanged()
                 }
@@ -75,7 +83,7 @@ class WeatherManagerImpl(
         weathers.addAll(
             weatherRepository.getWeatherForecastDaily().filter {
                 dateManager.convertTimestampToSpecificFormat1(it.timestampSecond) !=
-                    dateManager.convertTimestampToSpecificFormat1(weather.timestampSecond)
+                        dateManager.convertTimestampToSpecificFormat1(weather.timestampSecond)
             }
         )
         return weathers

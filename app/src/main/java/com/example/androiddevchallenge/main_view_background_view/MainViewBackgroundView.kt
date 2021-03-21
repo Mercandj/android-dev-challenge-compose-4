@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.main_view
+package com.example.androiddevchallenge.main_view_background_view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
