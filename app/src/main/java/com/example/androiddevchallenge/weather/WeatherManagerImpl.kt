@@ -57,8 +57,6 @@ class WeatherManagerImpl(
             addOn.postMainThread {
                 val succeeded = weather != null && weatherForecastDaily.isNotEmpty()
                 if (!succeeded) {
-                    weatherRepository.setWeather(null)
-                    weatherRepository.setWeatherForecastDaily(emptyList())
                     for (listener in listeners) {
                         listener.onChanged()
                     }
