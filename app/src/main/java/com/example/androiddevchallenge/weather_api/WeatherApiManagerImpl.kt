@@ -170,7 +170,7 @@ class WeatherApiManagerImpl(
 
     companion object {
 
-        private const val A_T = "886705b4c1182eb1c69f28eb8c520e20"
+        private const val A_T = "3f36a008bba9d213f7a6e6101f6588c1"
         private const val DOMAIN = "http://api.openweathermap.org/data/2.5"
     }
 }
