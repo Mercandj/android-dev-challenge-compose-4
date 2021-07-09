@@ -6,6 +6,8 @@
 <!--- You can find both of these in the url bar when you open your repository in github. -->
 ![Workflow result](https://github.com/Mercandj/android-dev-challenge-compose-4/workflows/Check/badge.svg)
 
+Requirement: Replace `WeatherApiManagerImpl#YOUR_KEY_HERE_WITH_FORECAST_AVAILABLE` by your openweathermap key
+
 ## :scroll: Description
 <!--- Describe your app in one or two sentences -->
 

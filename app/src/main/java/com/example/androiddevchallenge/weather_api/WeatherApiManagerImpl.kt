@@ -20,12 +20,25 @@ import com.example.androiddevchallenge.weather.Weather
 import com.example.androiddevchallenge.weather_unit.WeatherUnit
 import org.json.JSONException
 import org.json.JSONObject
+import java.util.concurrent.TimeUnit
 
 class WeatherApiManagerImpl(
     private val networkManager: NetworkManager
 ) : WeatherApiManager {
 
     override fun getWeather(city: String, weatherUnit: WeatherUnit): Weather {
+        if (A_T == "YOUR_KEY_HERE_WITH_FORECAST_AVAILABLE") {
+            // Fake weather
+            return Weather(
+                city = "Paris, France",
+                weatherUnit = WeatherUnit.METRIC,
+                type = Weather.Type.CLEAR,
+                temperature = 24f,
+                humidity = 0,
+                pressure = 0,
+                timestampSecond = System.currentTimeMillis()
+            )
+        }
         val response = try {
             networkManager.get(
                 url = createWeatherUrl(city, weatherUnit)
@@ -66,6 +79,65 @@ class WeatherApiManagerImpl(
         weatherUnit: WeatherUnit,
         numberOfDays: Int
     ): List<Weather> {
+        if (A_T == "YOUR_KEY_HERE_WITH_FORECAST_AVAILABLE") {
+            // Fake weather
+            return listOf(
+                Weather(
+                    city = "Paris, France",
+                    weatherUnit = WeatherUnit.METRIC,
+                    type = Weather.Type.CLEAR,
+                    temperature = 19f,
+                    humidity = 0,
+                    pressure = 0,
+                    timestampSecond = System.currentTimeMillis()
+                ),
+                Weather(
+                    city = "Paris, France",
+                    weatherUnit = WeatherUnit.METRIC,
+                    type = Weather.Type.RAIN,
+                    temperature = 22f,
+                    humidity = 0,
+                    pressure = 0,
+                    timestampSecond = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)
+                ),
+                Weather(
+                    city = "Paris, France",
+                    weatherUnit = WeatherUnit.METRIC,
+                    type = Weather.Type.THUNDERSTORM,
+                    temperature = 12f,
+                    humidity = 0,
+                    pressure = 0,
+                    timestampSecond = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(2)
+                ),
+                Weather(
+                    city = "Paris, France",
+                    weatherUnit = WeatherUnit.METRIC,
+                    type = Weather.Type.SNOW,
+                    temperature = -2f,
+                    humidity = 0,
+                    pressure = 0,
+                    timestampSecond = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(3)
+                ),
+                Weather(
+                    city = "Paris, France",
+                    weatherUnit = WeatherUnit.METRIC,
+                    type = Weather.Type.SNOW_LIGHT_SNOW,
+                    temperature = 3f,
+                    humidity = 0,
+                    pressure = 0,
+                    timestampSecond = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(4)
+                ),
+                Weather(
+                    city = "Paris, France",
+                    weatherUnit = WeatherUnit.METRIC,
+                    type = Weather.Type.CLEAR,
+                    temperature = 12f,
+                    humidity = 0,
+                    pressure = 0,
+                    timestampSecond = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(5)
+                )
+            )
+        }
         val response = try {
             networkManager.get(
                 url = getWeatherForecastDailyUrl(city, weatherUnit, numberOfDays)
@@ -170,7 +242,7 @@ class WeatherApiManagerImpl(
 
     companion object {
 
-        private const val A_T = "886705b4c1182eb1c69f28eb8c520e20"
+        private const val A_T = "YOUR_KEY_HERE_WITH_FORECAST_AVAILABLE"
         private const val DOMAIN = "http://api.openweathermap.org/data/2.5"
     }
 }
